@@ -10,12 +10,8 @@ declare global {
 		// interface PageData {}
 		// interface Platform {}
 	}
-	// let prisma: PrismaClient;
-	namespace NodeJS {
-		interface Global {
-			prisma: PrismaClient;
-		}
-	}
+	// eslint-disable-next-line no-var
+	var prisma: PrismaClient;
 }
 
 export {};

@@ -6,13 +6,40 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id        Int     @id @default(autoincrement())
-  email     String  @unique
-  firstName String?
-  lastName  String?
+  id      String    @id @unique
+  session Session[]
+  Key     Key[]
+
+  email String @unique
+  name  String
+
+  @@map("user")
+}
+
+model Session {
+  id             String @id @unique
+  user_id        String
+  active_expires BigInt
+  idle_expires   BigInt
+  user           User   @relation(references: [id], fields: [user_id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@map("session")
+}
+
+model Key {
+  id              String  @id @unique
+  hashed_password String?
+  user_id         String
+  primary         Boolean
+  expires         BigInt?
+  user            User    @relation(references: [id], fields: [user_id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@map("key")
 }

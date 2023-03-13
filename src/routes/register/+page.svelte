@@ -4,6 +4,7 @@
   import formSchema from './form-schema';
 </script>
 
+<h1 class="text-3xl m-8">Bankify Register</h1>
 <div
   class="container rounded-xl w-full my-4 mx-auto bg-gradient-to-r border border-gray-200 p-4 sm:p-6 shadow-md"
 >

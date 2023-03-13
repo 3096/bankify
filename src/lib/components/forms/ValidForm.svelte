@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { Button } from 'flowbite-svelte';
+  import { enhance, type SubmitFunction } from '$app/forms';
+  import { Button, Helper } from 'flowbite-svelte';
   import { setContext } from 'svelte';
   import type { z } from 'zod';
   import { key, type FormContext } from './context';
@@ -9,19 +10,39 @@
   export let formSchema: ReturnType<typeof z.object<T>>;
 
   let validMap = new Map(Object.keys(formSchema.shape).map((key) => [key, false]));
+  let errorMessage = '';
   setContext<FormContext<T>>(key, {
     formSchema,
     reportValid: (name, isValid) => {
       validMap = validMap.set(name, isValid);
+      errorMessage = '';
     }
   });
+
+  const enhanceForm = (() =>
+    ({ result }) => {
+      switch (result.type) {
+        case 'success':
+          return;
+        case 'failure':
+          errorMessage = result.data!.message;
+          return;
+      }
+    }) satisfies SubmitFunction;
 </script>
 
-<form method="POST">
+<form method="POST" use:enhance={enhanceForm}>
   <div {...$$restProps}>
     <slot />
   </div>
-  <Button type="submit" disabled={Array.from(validMap.values()).includes(false)}
+  <Button type="submit" disabled={errorMessage || Array.from(validMap.values()).includes(false)}
     >{submitText}</Button
   >
+  {#if errorMessage}
+    <div class="mt-2">
+      <Helper color="red">
+        <span class="font-medium">{errorMessage}</span>
+      </Helper>
+    </div>
+  {/if}
 </form>

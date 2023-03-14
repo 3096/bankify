@@ -1,5 +1,6 @@
 import { auth } from '$lib/server/lucia';
 import { fail, redirect, type Actions } from '@sveltejs/kit';
+import { LuciaError } from 'lucia-auth';
 import type { PageServerLoad } from './$types';
 import formSchema from './form-schema';
 
@@ -32,10 +33,14 @@ export const actions = {
         }
       });
     } catch (error) {
-      console.error(error);
-      return fail(500, { message: JSON.stringify(error) });
-    }
+      if (error instanceof LuciaError) {
+        if (error.message === 'AUTH_DUPLICATE_KEY_ID') {
+          return fail(400, { message: 'Email already in use' });
+        }
+      }
 
-    throw redirect(302, '/');
+      console.error(error);
+      return fail(500, { message: 'Unknown server error occurred' });
+    }
   }
 } satisfies Actions;

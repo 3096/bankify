@@ -7,14 +7,19 @@
 
   export let submitText: string;
   type T = $$Generic<z.ZodRawShape>;
-  export let formSchema: ReturnType<typeof z.object<T>>;
+  export let formSchema: ReturnType<typeof z.object<T>> | null = null;
+  export let onSuccess = () => {};
 
-  let validMap = new Map(Object.keys(formSchema.shape).map((key) => [key, false]));
+  let validMap = formSchema
+    ? new Map(Object.keys(formSchema.shape).map((key) => [key, false]))
+    : null;
   let errorMessage = '';
   setContext<FormContext<T>>(key, {
     formSchema,
     reportValid: (name, isValid) => {
-      validMap = validMap.set(name, isValid);
+      if (validMap) {
+        validMap = validMap.set(name, isValid);
+      }
       errorMessage = '';
     }
   });
@@ -23,6 +28,7 @@
     ({ result }) => {
       switch (result.type) {
         case 'success':
+          onSuccess();
           return;
         case 'failure':
           errorMessage = result.data!.message;
@@ -34,10 +40,17 @@
 <form method="POST" use:enhance={enhanceForm}>
   <div {...$$restProps}>
     <slot />
+    <Button
+      size="lg"
+      class="mt-1.5 transition duration-200 ease-in-out"
+      color="primary"
+      type="submit"
+      disabled={errorMessage || (validMap ? Array.from(validMap.values()).includes(false) : false)}
+    >
+      {submitText}
+      <div class=" font-normal" />
+    </Button>
   </div>
-  <Button type="submit" disabled={errorMessage || Array.from(validMap.values()).includes(false)}
-    >{submitText}</Button
-  >
   {#if errorMessage}
     <div class="mt-2">
       <Helper color="red">

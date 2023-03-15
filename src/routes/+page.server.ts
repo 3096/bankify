@@ -1,5 +1,6 @@
 import { validateAndCreateSession } from '$lib/server/lucia';
 import { fail, redirect } from '@sveltejs/kit';
+import { LuciaError } from 'lucia-auth';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals }) => {
@@ -15,11 +16,13 @@ export const actions: Actions = {
     const { email, password } = Object.fromEntries(formData.entries());
     try {
       const userSession = await validateAndCreateSession(email.toString(), password.toString());
-      if (!userSession) {
-        return fail(401, { message: 'Invalid email or password' });
-      }
       locals.setSession(userSession);
     } catch (error) {
+      if (error instanceof LuciaError) {
+        if (error.message === 'AUTH_INVALID_PASSWORD' || error.message === 'AUTH_INVALID_KEY_ID') {
+          return fail(401, { message: 'Invalid email or password' });
+        }
+      }
       console.error(error);
       return fail(500, { message: 'Unknown server error occurred' });
     }

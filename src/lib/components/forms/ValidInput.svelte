@@ -16,8 +16,8 @@
   $: parseResult = formSchema
     ? (formSchema.shape[name].safeParse(inputStr) as SafeParseReturnType<String, any>)
     : null;
-  $: if (parseResult) {
-    reportValid(name, parseResult.success);
+  $: if (inputStr) {
+    reportValid(name, parseResult ? parseResult.success : true);
   }
 </script>
 

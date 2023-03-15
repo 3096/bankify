@@ -50,12 +50,10 @@
       {submitText}
       <div class=" font-normal" />
     </Button>
-  </div>
-  {#if errorMessage}
-    <div class="mt-2">
+    {#if errorMessage}
       <Helper color="red">
         <span class="font-medium">{errorMessage}</span>
       </Helper>
-    </div>
-  {/if}
+    {/if}
+  </div>
 </form>

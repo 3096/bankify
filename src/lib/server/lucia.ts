@@ -10,3 +10,12 @@ export const auth = lucia({
 });
 
 export type Auth = typeof auth;
+
+export const validateAndCreateSession = async (email: string, password: string) => {
+  const key = await auth.useKey('email', email, password);
+  if (!key) {
+    return null;
+  }
+  const session = await auth.createSession(key.userId);
+  return session;
+};

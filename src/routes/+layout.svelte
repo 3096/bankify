@@ -1,4 +1,8 @@
 <script>
+  import { page } from '$app/stores';
+  import { handleSession } from '@lucia-auth/sveltekit/client';
+  handleSession(page);
+
   import '../app.postcss';
   import { Footer, FooterCopyright } from 'flowbite-svelte';
 </script>

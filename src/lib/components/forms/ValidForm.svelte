@@ -23,6 +23,8 @@
     ({ result }) => {
       switch (result.type) {
         case 'success':
+          // TODO: modify this later
+          window.location.href = '/p1';
           return;
         case 'failure':
           errorMessage = result.data!.message;

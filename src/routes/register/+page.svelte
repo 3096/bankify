@@ -14,7 +14,7 @@
 >
 <div class="sm:flex sm:justify-center">
   <div
-    class="w-full px-4 py-5 sm:p-6 sm:w-1/2 lg:w-1/3 sm:mx-4 lg:mx-8 bg-white overflow-hidden shadow-md rounded-lg"
+    class="w-full mb-10 px-4 py-5 sm:p-6 sm:w-1/2 lg:w-1/3 sm:mx-4 lg:mx-8 bg-white overflow-hidden shadow-md rounded-lg"
   >
     <h3 class="text-2xl leading-6 tracking-tight font-extralight mb-3.5 text-center">
       Join Bankify today

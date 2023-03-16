@@ -17,7 +17,13 @@ const config = {
     }
   },
 
-  plugins: [require('flowbite/plugin')]
+  darkMode: 'class',
+
+  daisyui: {
+    themes: false
+  },
+
+  plugins: [require('flowbite/plugin'), require('daisyui')]
 };
 
 module.exports = config;

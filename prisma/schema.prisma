@@ -16,7 +16,8 @@ model User {
   Key     Key[]
 
   email String @unique
-  name  String
+  firstName  String
+  lastName   String
 
   @@map("user")
 }

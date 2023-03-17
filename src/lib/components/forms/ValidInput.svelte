@@ -13,24 +13,33 @@
   let startNagging = false;
   let inputStr = '';
 
-  $: parseResult = formSchema.shape[name].safeParse(inputStr) as SafeParseReturnType<String, any>;
-  $: reportValid(name, parseResult.success);
+  $: parseResult = formSchema
+    ? (formSchema.shape[name].safeParse(inputStr) as SafeParseReturnType<String, any>)
+    : null;
+  $: if (inputStr) {
+    reportValid(name, parseResult ? parseResult.success : true);
+  }
 </script>
 
 <div>
-  <Label for={name} class="mb-2" color={startNagging && !parseResult.success ? 'red' : undefined}>
+  <Label
+    for={name}
+    class="mb-2 transition duration-200 ease-in-out"
+    color={startNagging && parseResult && !parseResult.success ? 'red' : undefined}
+  >
     {label}
   </Label>
   <Input
     {name}
+    class={$$restProps.class ?? 'transition duration-200 ease-in-out'}
     {...$$restProps}
     bind:value={inputStr}
     on:blur={() => {
       startNagging = true;
     }}
-    color={startNagging && !parseResult.success ? 'red' : undefined}
+    color={startNagging && parseResult && !parseResult.success ? 'red' : 'base'}
   />
-  {#if startNagging && !parseResult.success}
+  {#if startNagging && parseResult && !parseResult.success}
     <div class="mt-2">
       {#each parseResult.error.issues as issue}
         <Helper color="red">

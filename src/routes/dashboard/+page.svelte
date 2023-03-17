@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import ValidForm from '$lib/components/forms/ValidForm.svelte';
   import ValidInput from '$lib/components/forms/ValidInput.svelte';
   // import { Dropdown } from 'flowbite-svelte';
@@ -6,7 +6,9 @@
   // import icon from "./icon.png";
 
   import { Button, Dropdown, DropdownItem, DropdownDivider, DropdownHeader } from 'flowbite-svelte';
-  import TrashHeader from '$lib/components/forms/trashHeader.svelte';
+  import TrashHeader from '$lib/components/trashHeader.svelte';
+
+  export let data: import('./$types').PageData;
 </script>
 
 <!-- Welcome to p1
@@ -56,4 +58,15 @@
     <Button>Back</Button>
     <Button>Next</Button>
   </div>
+</div>
+
+<div class=" text-5xl font-bold text-center">
+  Currently logged in as:
+  {data.props.user.name}
+</div>
+<div class=" text-5xl font-bold text-center">
+  User ID: {data.props.user.id}
+</div>
+<div class=" text-5xl font-bold text-center text-blue-600">
+  <a href="/logout">Click to logout</a>
 </div>

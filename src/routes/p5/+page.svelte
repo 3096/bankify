@@ -1,14 +1,9 @@
 <script>
-    import ValidInput from "$lib/components/forms/ValidInput.svelte";
-
+  import ValidInput from '$lib/components/forms/ValidInput.svelte';
 </script>
-
-
 
 <h1>Menu Inbox Products Log out</h1>
 
 <h1>Accounts Dashboard</h1>
 
-<ValidInput>
-
-    This is your new space!
+This is your new space!

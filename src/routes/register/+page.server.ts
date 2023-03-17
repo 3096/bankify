@@ -1,4 +1,4 @@
-import { auth } from '$lib/server/lucia';
+import { auth, validateAndCreateSession } from '$lib/server/lucia';
 import { fail, redirect, type Actions } from '@sveltejs/kit';
 import { LuciaError } from 'lucia-auth';
 import type { PageServerLoad } from './$types';
@@ -12,7 +12,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 };
 
 export const actions = {
-  default: async ({ request }) => {
+  default: async ({ request, locals }) => {
     const formData = await request.formData();
 
     const parseResult = formSchema.safeParse(Object.fromEntries(formData.entries()));
@@ -22,7 +22,7 @@ export const actions = {
 
     try {
       await auth.createUser({
-        key: {
+        primaryKey: {
           providerId: 'email',
           providerUserId: parseResult.data.email,
           password: parseResult.data.password
@@ -32,6 +32,11 @@ export const actions = {
           email: parseResult.data.email
         }
       });
+      const userSession = await validateAndCreateSession(
+        parseResult.data.email,
+        parseResult.data.password
+      );
+      locals.setSession(userSession);
     } catch (error) {
       if (error instanceof LuciaError) {
         if (error.message === 'AUTH_DUPLICATE_KEY_ID') {

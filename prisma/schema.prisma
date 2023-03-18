@@ -18,6 +18,9 @@ model User {
   email String @unique
   firstName  String
   lastName   String
+  manager Boolean
+  date_of_birth DateTime
+  phone_number Int
 
   @@map("user")
 }
@@ -43,4 +46,59 @@ model Key {
 
   @@index([user_id])
   @@map("key")
+}
+
+model Address {
+  id      String    @id @unique
+  street_address String
+  city_name String
+  state_name String
+  zip_code Int
+}
+
+model Relational_Customer {
+  relational_manager_id      String    @id @unique
+  id      String
+}
+
+model Transaction_Payment {
+  transaction_id      String    @id @unique
+  recipient_account_id String
+  sender_account_id String
+  amount Int
+  time_stamp DateTime
+}
+
+model Account {
+  account_id      String    @id @unique
+  account_type String
+  user_id String
+  account_status String
+  account_activation_date DateTime
+  total_balance Int
+}
+
+model Manager {
+  manager_id      String    @id @unique
+  relational_manager_name String
+  branch_bank String
+  pin_code Int
+  email_id String
+  phone_number Int
+}
+
+model Card {
+  card_id      String    @id @unique
+  card_type String
+  user_id String
+  account_num String
+}
+
+model Notification {
+  message_id  String    @id @unique
+  recipient_account_id String
+  message_body  String
+  account_status  String
+  account_activation_date DateTime
+  total_balance Int 
 }

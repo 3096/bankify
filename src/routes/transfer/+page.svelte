@@ -14,6 +14,12 @@
     ]
 
 </script>
+
+<form action = "/dashboard">
+  <button class="btn btn-square btn-outline">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+    </button>
+  </form>
   
   <div  class="text-center">
     <Heading tag="h1" class="mb-4" customSize="text-4xl font-normal  md:text-5xl lg:text-2xl">Transfer Funds</Heading>
@@ -39,7 +45,7 @@
     <Input id='default-input' placeholder="$" />
   </div>
 
-  <Button href="http://localhost:5173/p1">Home</Button>   <Button href="/">Continue</Button>
+  <Button href="/dashboard">Home</Button>   <Button href="/">Continue</Button>
 
 
   

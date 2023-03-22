@@ -1,72 +1,101 @@
 <script lang="ts">
-  import ValidForm from '$lib/components/forms/ValidForm.svelte';
-  import ValidInput from '$lib/components/forms/ValidInput.svelte';
-  // import { Dropdown } from 'flowbite-svelte';
-  import formSchema from '../register/form-schema';
-  // import icon from "./icon.png";
+  import {  Heading, P, Span } from 'flowbite-svelte'
 
-  import { Button, Dropdown, DropdownItem, DropdownDivider, DropdownHeader } from 'flowbite-svelte';
-  import TrashHeader from '$lib/components/trashHeader.svelte';
-
-  export let data: import('./$types').PageData;
 </script>
 
-<!-- Welcome to p1
-<h1>Menu Inbox Products Log out</h1>
+<div class="navbar bg-base-100">
+  <div class="flex-1">
+    <a class="btn btn-ghost normal-case text-xl"><P size="4xl" weight="black">Bankify</P></a>
+  </div>
+  <div class="flex-none">
+    <ul class="menu menu-horizontal px-1">
 
-<h1>Accounts Dashboard</h1>
- -->
+      <li><a href = "/transfer" target ="_parent">Transfer</a></li>
+      <li><a href = "/" target ="_parent">Pay</a></li>
 
-<div class="topnav" style="background-color:pink">
-  <!-- It would be really cool if this disappeared on a scroll -->
 
-  <TrashHeader />
-  <h1>
-    Bankify,..... maybe a settings image here with absolute positioning? and turn the profile image
-    incon into a link?
-  </h1>
+      
+      <li><a href = "/logout" target ="_parent">Log Out</a></li>
 
-  <a class="active" href="#menu">Menu</a>
-  <a href="#home">Home</a>
+    </ul>
 
-  <h1>This is the cool home page!</h1>
-
-  <!-- <ValidForm class="grid gap-6 mb-6 md:grid-cols-1" submitText="Register" {formSchema}>
-      <ValidInput name="name" label="Name" type="text" required />
-      <ValidInput name="email" label="Email" type="email" required />
-      <ValidInput name="password" label="Password" type="password" required />
-    </ValidForm> -->
-
-  <input placeholder="ValidInput kinda goated" />
-  <br />
-  <br />
-  Welcome to Dank-, I mean, Bankify!
-  <a href="#contact">Search</a>
-
-  <br />
-  <Button>Dropdown button</Button>
-  <Dropdown>
-    <DropdownItem>Dashboard</DropdownItem>
-    <DropdownItem>Settings</DropdownItem>
-    <DropdownItem>Earnings</DropdownItem>
-    <DropdownItem>Sign out</DropdownItem>
-  </Dropdown>
-
-  <!-- <br />
-  <br /> -->
-  <div class="m-8">
-    <Button>Back</Button>
-    <Button>Next</Button>
+    
   </div>
 </div>
 
-<!-- <div class=" text-5xl font-bold text-center">
-  Currently logged in as:
-  {data.props.user.name}
+
+
+
+
+<div class="overflow-x-auto">
+  <table class="table w-full">
+  <br>
+  <br>
+  <br>
+  <br>
+  
+    <tbody>
+      <!-- row 1 -->
+      <tr>
+        <th></th>
+        <td><P size="3xl" weight="bold">Checkings Account</P></td>
+        <td><P size="xl" weight = "medium">$2,432</P></td>
+        <td></td>
+      </tr>
+      <!-- row 2 -->
+      <tr>
+        <th></th>
+        <td><P size="3xl" weight="bold">Savings Account</P></td>
+        <td><P size="xl" weight = "medium">$5,431,320</P></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
 </div>
-<div class=" text-5xl font-bold text-center">
-  User ID: {data.props.user.id}
+
+<br>
+<br>
+<br>
+<br>
+
+<p style="text-align:center;"><Heading tag="h1" class="mb-4" customSize="text-3xl font-extrabold  md:text-3xl lg:text-4xl"><Span gradient>Bankify Deals</Span></Heading>
+</p>
+
+
+<div class="flex flex-col w-full lg:flex-row">
+
+
+  <div class="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center"><P size="3xl" weight="semibold">Target</P>
+    <P size="1xl" weight="medium">10% Cash Back</P>
+
+    <form action = "/targetdeal">
+    <button class="btn btn-info">Activate</button>
+  </form>
+
+  </div>
+
+    
+
+
+  <div class="divider lg:divider-horizontal"></div> 
+  <div class ="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center"><P size="3xl" weight="semibold">Starbucks</P>
+    <P size="1xl" weight="medium">5% Cash Back</P>
+
+<form action = "/starbucksdeal">
+    <button class="btn btn-info">Activate</button>
+  </form>  </div>
+
+    
+
+  <div class="divider lg:divider-horizontal"></div> 
+  <div class="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center"><P size="3xl" weight="semibold">Nike</P>
+  <P size="1xl" weight="medium">$10 off $75</P>
+  <form action = "/nikedeal">
+    <button class="btn btn-info">Activate</button>
+  </form> 
 </div>
 <div class=" text-5xl font-bold text-center text-blue-600">
   <a href="/logout">Click to logout</a>
-</div> -->
+</div>
+
+

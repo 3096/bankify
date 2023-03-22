@@ -28,7 +28,8 @@ export const actions = {
           password: parseResult.data.password
         },
         attributes: {
-          name: parseResult.data.name,
+          firstName: parseResult.data.firstName,
+          lastName: parseResult.data.lastName,
           email: parseResult.data.email
         }
       });

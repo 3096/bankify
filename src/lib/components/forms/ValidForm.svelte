@@ -11,7 +11,7 @@
   export let onSuccess = () => {};
 
   let validMap = formSchema
-    ? new Map(Object.keys(formSchema.shape).map((key) => [key, false]))
+    ? new Map(Object.entries(formSchema.shape).map(([key, value]) => [key, value.isOptional()]))
     : null;
   let errorMessage = '';
   setContext<FormContext<T>>(key, {

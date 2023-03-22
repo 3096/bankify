@@ -1,5 +1,6 @@
 <script>
   import ValidInput from '$lib/components/forms/ValidInput.svelte';
+  import NavBar from '$lib/components/NavBar.svelte';
 </script>
 
 <!-- Welcome to p1
@@ -14,8 +15,11 @@
     <a href="#about">About</a>
 </div> -->
 
-<div class=" bg-slate-500">
-  <div class="card w-96 glass">
+<div class="bg-indigo-400">
+  <NavBar />
+  <div class=" mx-auto card w-80 glass">
+    <!-- <div class="left-0 top-0 bg-indigo-400">
+  <div class=" mx-auto place-self-center card w-80 glass"> -->
     <figure>
       <img
         src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bWVyY2VkZXMlMjBjYXJ8ZW58MHx8MHx8&w=1000&q=80"
@@ -30,7 +34,7 @@
       </div>
     </div>
   </div>
-  <div class="card w-96 glass">
+  <div class="card w-95 glass">
     <figure>
       <img
         src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bWVyY2VkZXMlMjBjYXJ8ZW58MHx8MHx8&w=1000&q=80"

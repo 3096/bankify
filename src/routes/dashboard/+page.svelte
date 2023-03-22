@@ -60,7 +60,7 @@
   </div>
 </div>
 
-<div class=" text-5xl font-bold text-center">
+<!-- <div class=" text-5xl font-bold text-center">
   Currently logged in as:
   {data.props.user.name}
 </div>
@@ -69,4 +69,4 @@
 </div>
 <div class=" text-5xl font-bold text-center text-blue-600">
   <a href="/logout">Click to logout</a>
-</div>
+</div> -->

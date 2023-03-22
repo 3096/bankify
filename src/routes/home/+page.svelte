@@ -15,52 +15,48 @@
     <a href="#about">About</a>
 </div> -->
 
-<div class="bg-indigo-400">
+
+<div>
   <NavBar />
-  <div class=" mx-auto card w-80 glass">
-    <!-- <div class="left-0 top-0 bg-indigo-400">
-  <div class=" mx-auto place-self-center card w-80 glass"> -->
+  <div class="my-3 bg-indigo-400 mx-auto card w-80 glass">
     <figure>
-      <img
+      <!-- <img
         src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bWVyY2VkZXMlMjBjYXJ8ZW58MHx8MHx8&w=1000&q=80"
         alt="car!"
-      />
+      /> -->
     </figure>
     <div class="card-body">
-      <h2 class="card-title">Life hack</h2>
-      <p>How to park your car at your garage?</p>
+      <h2 class="card-title">Hello, Wendy!</h2>
+    </div>
+  </div>
+  <div class=" my-3 bg-indigo-400 mx-auto card w-80 glass">
+    <figure>
+      <!-- <img
+        src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bWVyY2VkZXMlMjBjYXJ8ZW58MHx8MHx8&w=1000&q=80"
+        alt="car!"
+      /> -->
+    </figure>
+    <div class="card-body">
+      <h2 class="card-title">Your Accounts</h2>
+      <p>Checking</p>
+      <p>Savings</p>
       <div class="card-actions justify-end">
         <button class="btn btn-primary">Learn now!</button>
       </div>
     </div>
   </div>
-  <div class="card w-95 glass">
+  <div class=" my-3 bg-indigo-400 mx-auto card w-80 glass">
     <figure>
-      <img
+      <!-- <img
         src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bWVyY2VkZXMlMjBjYXJ8ZW58MHx8MHx8&w=1000&q=80"
         alt="car!"
-      />
+      /> -->
     </figure>
     <div class="card-body">
-      <h2 class="card-title">Life hack</h2>
-      <p>How to park your car at your garage?</p>
+      <h2 class="card-title">Schedule Appointment</h2>
+      <p>Meet with one of our representatives!</p>
       <div class="card-actions justify-end">
-        <button class="btn btn-primary">Learn now!</button>
-      </div>
-    </div>
-  </div>
-  <div class="card w-96 glass">
-    <figure>
-      <img
-        src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bWVyY2VkZXMlMjBjYXJ8ZW58MHx8MHx8&w=1000&q=80"
-        alt="car!"
-      />
-    </figure>
-    <div class="card-body">
-      <h2 class="card-title">Life hack</h2>
-      <p>How to park your car at your garage?</p>
-      <div class="card-actions justify-end">
-        <button class="btn btn-primary">Learn now!</button>
+        <button class="btn btn-primary">Schedule now!</button>
       </div>
     </div>
   </div>
@@ -187,6 +183,36 @@
         stroke-linejoin="round"
         stroke-width="2"
         d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+      /></svg
+    >
+  </button>
+  <button class="text-accent">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-5 w-5"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      ><path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+      /></svg
+    >
+  </button>
+  <button class="text-accent">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-5 w-5"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      ><path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
       /></svg
     >
   </button>

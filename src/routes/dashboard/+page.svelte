@@ -70,8 +70,7 @@
 
     <form action = "/targetdeal">
     <button class="btn btn-info">Activate</button>
-  </form>
-
+    </form>
   </div>
 
     
@@ -80,22 +79,25 @@
   <div class="divider lg:divider-horizontal"></div> 
   <div class ="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center"><P size="3xl" weight="semibold">Starbucks</P>
     <P size="1xl" weight="medium">5% Cash Back</P>
+  </div>
 
-<form action = "/starbucksdeal">
+  <form action = "/starbucksdeal">
     <button class="btn btn-info">Activate</button>
-  </form>  </div>
+  </form>
+</div>
 
     
 
-  <div class="divider lg:divider-horizontal"></div> 
+<div class="divider lg:divider-horizontal"></div> 
   <div class="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center"><P size="3xl" weight="semibold">Nike</P>
-  <P size="1xl" weight="medium">$10 off $75</P>
-  <form action = "/nikedeal">
-    <button class="btn btn-info">Activate</button>
-  </form> 
+    <P size="1xl" weight="medium">$10 off $75</P>
+    <form action = "/nikedeal">
+      <button class="btn btn-info">Activate</button>
+    </form> 
+  </div>
+  <div class=" text-5xl font-bold text-center text-blue-600">
+    <a href="/logout">Click to logout</a>
 </div>
-<div class=" text-5xl font-bold text-center text-blue-600">
-  <a href="/logout">Click to logout</a>
-</div>
+
 
 

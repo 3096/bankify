@@ -5,7 +5,7 @@ import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals }) => {
   // if the user is already logged in, redirect to dashboard
-  if (await locals.validate()) {
+  if (await locals.auth.validate()) {
     throw redirect(302, '/dashboard');
   }
 };
@@ -16,7 +16,7 @@ export const actions: Actions = {
     const { email, password } = Object.fromEntries(formData.entries());
     try {
       const userSession = await validateAndCreateSession(email.toString(), password.toString());
-      locals.setSession(userSession);
+      locals.auth.setSession(userSession);
     } catch (error) {
       if (error instanceof LuciaError) {
         if (error.message === 'AUTH_INVALID_PASSWORD' || error.message === 'AUTH_INVALID_KEY_ID') {

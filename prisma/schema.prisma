@@ -10,11 +10,43 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id      String    @id @unique
-  session Session[]
-  Key     Key[]
+model AuthUser {
+  id           String        @id @unique
+  auth_session AuthSession[]
+  auth_key     AuthKey[]
+  // here you can add custom fields for your user
+  // e.g. name, email, username, roles, etc.
+  User         User?
 
+  @@map("auth_user")
+}
+
+model AuthSession {
+  id             String   @id @unique
+  user_id        String
+  active_expires BigInt
+  idle_expires   BigInt
+  auth_user      AuthUser @relation(references: [id], fields: [user_id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@map("auth_session")
+}
+
+model AuthKey {
+  id              String   @id @unique
+  hashed_password String?
+  user_id         String
+  primary_key     Boolean
+  expires         BigInt?
+  auth_user       AuthUser @relation(references: [id], fields: [user_id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@map("auth_key")
+}
+
+model User {
+  id          String    @id @unique
+  authUser    AuthUser  @relation(references: [id], fields: [id], onDelete: Cascade)
   email       String    @unique
   firstName   String
   lastName    String?
@@ -23,31 +55,6 @@ model User {
   phoneNumber Int?
   accounts    Account[]
   createdAt   DateTime  @default(now())
-
-  @@map("user")
-}
-
-model Session {
-  id             String @id @unique
-  user_id        String
-  active_expires BigInt
-  idle_expires   BigInt
-  user           User   @relation(references: [id], fields: [user_id], onDelete: Cascade)
-
-  @@index([user_id])
-  @@map("session")
-}
-
-model Key {
-  id              String  @id @unique
-  hashed_password String?
-  user_id         String
-  primary         Boolean
-  expires         BigInt?
-  user            User    @relation(references: [id], fields: [user_id], onDelete: Cascade)
-
-  @@index([user_id])
-  @@map("key")
 }
 
 // model Address {

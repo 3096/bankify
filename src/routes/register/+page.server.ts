@@ -3,10 +3,11 @@ import { fail, redirect, type Actions } from '@sveltejs/kit';
 import { LuciaError } from 'lucia-auth';
 import type { PageServerLoad } from './$types';
 import formSchema from './form-schema';
+import prisma from '$lib/server/prisma';
 
 export const load: PageServerLoad = async ({ locals }) => {
   // if the user is already logged in, redirect to home page?
-  if (await locals.validate()) {
+  if (await locals.auth.validate()) {
     throw redirect(302, '/');
   }
 };
@@ -21,13 +22,17 @@ export const actions = {
     }
 
     try {
-      await auth.createUser({
+      const { userId } = await auth.createUser({
         primaryKey: {
           providerId: 'email',
           providerUserId: parseResult.data.email,
           password: parseResult.data.password
         },
-        attributes: {
+        attributes: undefined
+      });
+      prisma.user.create({
+        data: {
+          id: userId,
           firstName: parseResult.data.firstName,
           lastName: parseResult.data.lastName,
           email: parseResult.data.email
@@ -37,7 +42,7 @@ export const actions = {
         parseResult.data.email,
         parseResult.data.password
       );
-      locals.setSession(userSession);
+      locals.auth.setSession(userSession);
     } catch (error) {
       if (error instanceof LuciaError) {
         if (error.message === 'AUTH_DUPLICATE_KEY_ID') {

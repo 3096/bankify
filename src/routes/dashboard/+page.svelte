@@ -10,6 +10,7 @@
   <div class="flex-none">
     <ul class="menu menu-horizontal px-1">
 
+      <li><a href = "/uploadCheque" target ="_parent">Upload Check</a></li>
       <li><a href = "/transfer" target ="_parent">Transfer</a></li>
       <li><a href = "/" target ="_parent">Pay</a></li>
 

@@ -1,9 +1,10 @@
 <script lang="ts">
-  import { enhance, type SubmitFunction } from '$app/forms';
-  import { Button, Helper } from 'flowbite-svelte';
   import { setContext } from 'svelte';
   import type { z } from 'zod';
+  import { enhance, type SubmitFunction } from '$app/forms';
   import { key, type FormContext } from './context';
+  import type { FormResultData, NamedErrors } from './types';
+  import { writable } from 'svelte/store';
 
   export let submitText: string;
   type T = $$Generic<z.ZodRawShape>;
@@ -12,16 +13,20 @@
 
   let validMap = formSchema
     ? new Map(Object.entries(formSchema.shape).map(([key, value]) => [key, value.isOptional()]))
-    : null;
-  let errorMessage = '';
+    : new Map<string, boolean>();
+  $: hasInvalidFields = Array.from(validMap.values()).includes(false);
+  let formErrorMessages: string[] = [];
+  let broadcastError = writable({} as NamedErrors);
+
   setContext<FormContext<T>>(key, {
     formSchema,
     reportValid: (name, isValid) => {
-      if (validMap) {
-        validMap = validMap.set(name, isValid);
+      validMap = validMap.set(name, isValid);
+      if (isValid) {
+        formErrorMessages = [];
       }
-      errorMessage = '';
-    }
+    },
+    broadcastError
   });
 
   const enhanceForm = (() =>
@@ -31,29 +36,30 @@
           onSuccess();
           return;
         case 'failure':
-          errorMessage = result.data!.message;
+          if (result.data!.errorMessages !== undefined) {
+            formErrorMessages = result.data!.errorMessages;
+          }
+          if (result.data!.namedErrors !== undefined) {
+            broadcastError.set(result.data!.namedErrors);
+          }
           return;
       }
-    }) satisfies SubmitFunction;
+    }) satisfies SubmitFunction<undefined, FormResultData>;
 </script>
 
 <form method="POST" use:enhance={enhanceForm}>
   <div {...$$restProps}>
     <slot />
-    <Button
-      size="lg"
-      class="mt-1.5 transition duration-200 ease-in-out"
+    <button
+      class="btn btn-primary mt-6 transition duration-200 ease-in-out"
       color="primary"
       type="submit"
-      disabled={errorMessage || (validMap ? Array.from(validMap.values()).includes(false) : false)}
+      disabled={!!formErrorMessages.length || hasInvalidFields}
     >
       {submitText}
-      <div class=" font-normal" />
-    </Button>
-    {#if errorMessage}
-      <Helper color="red">
-        <span class="font-medium">{errorMessage}</span>
-      </Helper>
-    {/if}
+    </button>
+    {#each formErrorMessages as message}
+      <span class="font-medium text-red-500">{message}</span>
+    {/each}
   </div>
 </form>

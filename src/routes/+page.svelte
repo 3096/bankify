@@ -11,7 +11,7 @@
     class="w-full px-4 py-5 sm:p-6 sm:w-1/2 lg:w-1/3 sm:mx-4 lg:mx-8 bg-white overflow-hidden shadow-md rounded-lg"
   >
     <ValidForm
-      class="grid gap-6 mb-6 md:grid-cols-1"
+      class="grid gap-3 mb-6 md:grid-cols-1"
       submitText="Login"
       onSuccess={() => goto('/dashboard')}
     >

@@ -26,8 +26,10 @@
 <br>
 
 <form>
-  <label for = "myFile">Upload check (png and jpeg files only)</label>
+  <div>
+    <label for = "myFile">Upload check (png and jpeg files only)</label>
+  </div>
   <br>
-  <input type="file" id="myFile" name="filename" accept=".png, .jpeg, .jpg">
-  <input type="submit" accept=".png, .jpeg, .jpg">
+  <input type="file" id="myFile" class="file-input file-input-bordered" name="filename" accept=".png, .jpeg, .jpg" >
+  <input type="submit" class = "btn" accept=".png, .jpeg, .jpg" value = "Submit and Continue">
 </form>

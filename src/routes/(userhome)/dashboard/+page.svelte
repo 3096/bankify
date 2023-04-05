@@ -1,5 +1,9 @@
 <script lang="ts">
   import { Heading, P, Span } from 'flowbite-svelte';
+  import type { PageData } from './$types';
+  import { ACCOUNT_TYPE_NAMES } from '$lib/account';
+
+  export let data: PageData;
 </script>
 
 <div class="overflow-x-auto">
@@ -10,20 +14,14 @@
     <br />
 
     <tbody>
-      <!-- row 1 -->
-      <tr>
-        <th />
-        <td><P size="3xl" weight="bold">Checkings Account</P></td>
-        <td><P size="xl" weight="medium">$2,432</P></td>
-        <td />
-      </tr>
-      <!-- row 2 -->
-      <tr>
-        <th />
-        <td><P size="3xl" weight="bold">Savings Account</P></td>
-        <td><P size="xl" weight="medium">$5,431,320</P></td>
-        <td />
-      </tr>
+      {#each data.user.accounts as account}
+        <tr>
+          <th />
+          <td><P size="3xl" weight="bold">{ACCOUNT_TYPE_NAMES[account.accountType]} Account</P></td>
+          <td><P size="xl" weight="medium">${account.currentBalance}</P></td>
+          <td />
+        </tr>
+      {/each}
     </tbody>
   </table>
 </div>

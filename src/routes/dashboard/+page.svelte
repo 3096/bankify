@@ -11,7 +11,7 @@
     <ul class="menu menu-horizontal px-1">
 
       <li><a href = "/transfer" target ="_parent">Transfer</a></li>
-      <li><a href = "/" target ="_parent">Pay</a></li>
+      <li><a href = "/payment" target ="_parent">Pay</a></li>
 
 
       

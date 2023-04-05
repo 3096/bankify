@@ -1,9 +1,31 @@
 <script>
-    import ValidInput from "$lib/components/forms/ValidInput.svelte";
+  import ValidInput from "$lib/components/forms/ValidInput.svelte";
+
+  //upload and preview image: https://svelte.dev/repl/b5333059a2f548809a3ac3f60a17a8a6?version=3.31.2
+  let input;
+  let container;
+  let image;
+  let placeholder;
+	let showImage = false;
+
+  function onChange() {
+    const file = input.files[0];
+		
+    if (file) {
+			showImage = true;
+
+      const reader = new FileReader();
+      reader.addEventListener("load", function () {
+        image.setAttribute("src", reader.result);
+      });
+      reader.readAsDataURL(file);
+			
+			return;
+    } 
+		showImage = false; 
+  }
 
 </script>
-
-
 
 <!-- Welcome to p1
 <h1>Menu Inbox Products Log out</h1>
@@ -30,6 +52,14 @@
     <label for = "myFile">Upload check (png and jpeg files only)</label>
   </div>
   <br>
-  <input type="file" id="myFile" class="file-input file-input-bordered" name="filename" accept=".png, .jpeg, .jpg" >
+  <input type="file" id="myFile" class="file-input file-input-bordered" name="filename" accept=".png, .jpeg, .jpg" bind:this={input} on:change={onChange}>
   <input type="submit" class = "btn" accept=".png, .jpeg, .jpg" value = "Submit and Continue">
 </form>
+<br>
+<div>
+	{#if showImage}
+		<img bind:this={image} src="" alt="Preview" />
+	{:else}
+		<span bind:this={placeholder}>Image Preview</span>
+	{/if}
+</div>

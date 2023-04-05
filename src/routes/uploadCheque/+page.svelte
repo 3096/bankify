@@ -7,9 +7,10 @@
   let image;
   let placeholder;
 	let showImage = false;
+  let file;
 
   function onChange() {
-    const file = input.files[0];
+    file = input.files[0];
 		
     if (file) {
 			showImage = true;
@@ -53,7 +54,9 @@
   </div>
   <br>
   <input type="file" id="myFile" class="file-input file-input-bordered" name="filename" accept=".png, .jpeg, .jpg" bind:this={input} on:change={onChange}>
-  <input type="submit" class = "btn" accept=".png, .jpeg, .jpg" value = "Submit and Continue">
+  {#if file}
+    <input type="submit" class = "btn" accept=".png, .jpeg, .jpg" value = "Submit and Continue">
+  {/if}
 </form>
 <br>
 <div>

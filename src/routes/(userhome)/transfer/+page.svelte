@@ -45,7 +45,7 @@
     <Input id='default-input' placeholder="$" />
   </div>
 
- <Button href="/">Continue</Button>
+  <Button href="/">Continue</Button>
 
 
   

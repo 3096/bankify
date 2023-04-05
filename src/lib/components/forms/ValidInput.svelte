@@ -5,6 +5,7 @@
 
   export let name: string;
   export let label: string;
+  export let elementType: 'input' | 'select' = 'input';
 
   type T = $$Generic<z.ZodRawShape>;
   let { formSchema, reportValid, broadcastError } = getContext<FormContext<T>>(key);
@@ -36,17 +37,35 @@
       {label}
     </span>
   </label>
-  <input
-    {name}
-    class={($$restProps.class ?? 'w-full transition duration-200 ease-in-out') +
-      ' input input-bordered'}
-    class:input-error={showError}
-    {...$$restProps}
-    bind:value={inputStr}
-    on:blur={() => {
-      startNagging = true;
-    }}
-  />
+
+  {#if elementType === 'select'}
+    <select
+      {name}
+      class={($$restProps.class ?? 'w-full transition duration-200 ease-in-out') +
+        ' select select-bordered'}
+      class:select-error={showError}
+      {...$$restProps}
+      bind:value={inputStr}
+      on:blur={() => {
+        startNagging = true;
+      }}
+    >
+      <slot />
+    </select>
+  {:else if elementType === 'input'}
+    <input
+      {name}
+      class={($$restProps.class ?? 'w-full transition duration-200 ease-in-out') +
+        ' input input-bordered'}
+      class:input-error={showError}
+      {...$$restProps}
+      bind:value={inputStr}
+      on:blur={() => {
+        startNagging = true;
+      }}
+    />
+  {/if}
+
   {#if showError}
     <label class="label" for={name}>
       {#if schemaParseResult && !schemaParseResult.success}

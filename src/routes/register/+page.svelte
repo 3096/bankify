@@ -16,11 +16,11 @@
   <div
     class="w-full mb-10 px-4 py-5 sm:p-6 sm:w-1/2 lg:w-1/3 sm:mx-4 lg:mx-8 bg-white overflow-hidden shadow-md rounded-lg"
   >
-    <h3 class="text-2xl leading-6 tracking-tight font-extralight mb-7 text-center">
+    <h3 class="text-2xl leading-6 tracking-tight font-extralight mb-4 text-center">
       Join Bankify today
     </h3>
     <ValidForm
-      class="grid gap-6 mb-2 md:grid-cols-1"
+      class="grid gap-3 mb-2 md:grid-cols-1"
       submitText="Register"
       {formSchema}
       onSuccess={() => goto('/dashboard')}

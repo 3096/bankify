@@ -17,13 +17,13 @@
     if (file) {
       console.log(typeof file);
 			showImage = true;
-      //sessionStorage.setItem("uploadedCheck", file);
 
       const reader = new FileReader();
       reader.addEventListener("load", function () {
         image.setAttribute("src", reader.result);
         const base64Image = (reader.result as string).split(',')[1];
         sessionStorage.setItem("uploadedCheck", base64Image);
+        //console.log(base64Image);
       });
       reader.readAsDataURL(file);
 
@@ -42,19 +42,6 @@
 
 </script>
 
-<!-- Welcome to p1
-<h1>Menu Inbox Products Log out</h1>
-
-<h1>Accounts Dashboard</h1> -->
-
-<!-- <div class="topnav">
-  <a class="active" href="#home">Home</a>
-  <a href="#news">News</a>
-  <a href="#contact">Contact</a>
-  <a href="#about">About</a>
-</div> -->
-
-<!-- <br> -->
 <form action = "/dashboard">
   <button class="btn btn-square btn-outline">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
@@ -69,9 +56,9 @@
   <br>
   <input type="file" id="myFile" class="file-input file-input-bordered" name="filename" accept=".png, .jpeg, .jpg" bind:this={input} on:change={onChange}>
   {#if file}
-  <!-- <a href = "/uploadCheckConfirm"> -->
-    <input type="submit" class = "btn" accept=".png, .jpeg, .jpg" value = "Submit and Continue" on:click={retrieveImage}>
-  <!-- </a> -->
+  <a href = "/uploadCheckConfirm">
+    <input type="submit" class = "btn" accept=".png, .jpeg, .jpg" value = "Submit and Continue">
+  </a>
   {/if}
 </form>
 <br>

@@ -5,7 +5,13 @@
     const base64Image = sessionStorage.getItem("uploadedCheck");
     imageSrc = `data:image/png;base64,${base64Image}`;
     showImage = true;
+    //console.log(base64Image);
   }
+
+  let accountNo;
+  let amount;
+  //do stuff with an OCR to figure out accountNo and amount to deposit
+
 </script>
 
 <form action = "/dashboard">
@@ -20,6 +26,6 @@
 </form>
 <div>
 	{#if showImage}
-		<img bind:this={imageSrc} src="" alt="Preview" />
+		<img  src={imageSrc} alt="Preview" />
 	{/if}
 </div>

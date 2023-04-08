@@ -31,14 +31,6 @@
     } 
 		showImage = false; 
   }
-  
-  let imageSrc;
-  let showRetrieved = false;
-  function retrieveImage() {
-    const base64Image = sessionStorage.getItem("uploadedCheck");
-    imageSrc = `data:image/png;base64,${base64Image}`;
-    showRetrieved = true;
-  }
 
 </script>
 
@@ -68,10 +60,4 @@
 	{:else}
 		<span bind:this={placeholder}>Image Preview</span>
 	{/if}
-</div>
-
-<div>
-  {#if showRetrieved}
-    <img src="{imageSrc}" alt="My Image">
-  {/if}
 </div>

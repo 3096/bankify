@@ -2,8 +2,12 @@
   import { Heading, P, Span } from 'flowbite-svelte';
   import type { PageData } from './$types';
   import { ACCOUNT_TYPE_NAMES } from '$lib/account';
+  import { commaSeparateNumber } from '$lib/utils';
 
   export let data: PageData;
+  let accountsSortedByCreationDate = data.user.accounts.sort(
+    (a, b) => a.createdAt.getDate() - b.createdAt.getDate()
+  );
 </script>
 
 <div class="overflow-x-auto">
@@ -14,11 +18,11 @@
     <br />
 
     <tbody>
-      {#each data.user.accounts as account}
+      {#each accountsSortedByCreationDate as account}
         <tr>
           <th />
           <td><P size="3xl" weight="bold">{ACCOUNT_TYPE_NAMES[account.accountType]} Account</P></td>
-          <td><P size="xl" weight="medium">${account.currentBalance}</P></td>
+          <td><P size="xl" weight="medium">${commaSeparateNumber(account.currentBalance)}</P></td>
           <td />
         </tr>
       {/each}

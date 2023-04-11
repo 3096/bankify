@@ -1,16 +1,18 @@
+
 <script lang="ts">
   import {  Heading, P, Span } from 'flowbite-svelte'
 
 </script>
 
-<div class="navbar bg-base-100">
-  <div class="flex-1">
+
+  <div class="navbar bg-base-100 ">
+    <div class="flex-1">
     <a class="btn btn-ghost normal-case text-xl"><P size="4xl" weight="black">Bankify</P></a>
   </div>
   <div class="flex-none">
     <ul class="menu menu-horizontal px-1">
 
-      <li><a href = "/transfer" target ="_parent">Transfer</a></li>
+      <li><a href = "/transfer" target ="_parent"><td><P weight="normal">Transfer</P></a></li>
       <li><a href = "/payment" target ="_parent">Pay</a></li>
 
 
@@ -22,6 +24,7 @@
     
   </div>
 </div>
+
 
 
 
@@ -42,6 +45,7 @@
         <td><P size="xl" weight = "medium">$2,432</P></td>
         <td></td>
       </tr>
+      
       <!-- row 2 -->
       <tr>
         <th></th>
@@ -62,8 +66,8 @@
 </p>
 
 
-<div class="flex flex-col w-full lg:flex-row">
 
+<div class="flex flex-col w-full lg:flex-row">
 
   <div class="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center"><P size="3xl" weight="semibold">Target</P>
     <P size="1xl" weight="medium">10% Cash Back</P>
@@ -74,7 +78,6 @@
 
   </div>
 
-    
 
 
   <div class="divider lg:divider-horizontal"></div> 
@@ -94,8 +97,8 @@
     <button class="btn btn-info">Activate</button>
   </form> 
 </div>
-<div class=" text-5xl font-bold text-center text-blue-600">
-  <a href="/logout">Click to logout</a>
 </div>
+<br>
+<br>
 
 

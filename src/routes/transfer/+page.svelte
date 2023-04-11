@@ -1,51 +1,75 @@
-<script>
-    import ValidInput from "$lib/components/forms/ValidInput.svelte";
-    import {  Heading, P, Button } from 'flowbite-svelte'
-    import { Label, Input, Select } from 'flowbite-svelte'
-
-    /**
-     * @type {any}
-     */
-    let selected;
-  
-    let accountType = [
-      {value:"CA", name: "Checking Account"},
-      {value:"SA", name: "Savings Account"},
-    ]
-
-</script>
 
 <form action = "/dashboard">
   <button class="btn btn-square btn-outline">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
     </button>
   </form>
+          
+
+  <div class="container flex items-center justify-center min-h-screen px-6 mx-auto">
+      <form class="w-full max-w-md">
+
+        <center><h1 class="text-5xl font-bold">Transfer Funds</h1></center>
+<br>
+<br>
+<br>
+
+        <div>
+          <label for="username" class="block text-sm text-black dark:text-black">Recipient's Account Number</label>
+      
+          <input type="text" placeholder="e.g. 1" class="block  mt-2 w-full placeholder-gray-400/70 dark:placeholder-gray-500 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300" />
+      </div>
+
+      <div class="relative flex items-center mt-6">
+        <select class="select select-bordered w-full max-w-xs">
+          <option disabled selected>Select Account Type</option>
+          <option>Checkings</option>
+          <option>Savings</option>
+        </select>
+      </div>
+      
+
+                  
+
+        <style>
+          .currency-wrap{
+            position:relative;
+          }
+          
+          .currency-code{
+            position:absolute;
+            left:8px;
+            top:10px;
+          }
+          
+          .text-currency{
+            padding:10px 20px;
+            border:solid 1px #ccc;
+            border-radius:5px;
+          }
+        </style>
+        
+        <div class="relative flex items-center mt-6">
+        <div class="currency-wrap">
+          <span class="currency-code">$</span>
+          <input type="number" class="text-currency"/>
+        </div>
+        </div>
   
-  <div  class="text-center">
-    <Heading tag="h1" class="mb-4" customSize="text-4xl font-normal  md:text-5xl lg:text-2xl">Transfer Funds</Heading>
+        <div class="relative flex items-center mt-6">
 
-    <P class="mb-6 text-lg lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">Recipient</P>
+        <!-- The button to open modal -->
+<a href="#my-modal-2" class="btn">Transfer</a>
+<!-- Put this part before </body> tag -->
+<div class="modal" id="my-modal-2">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">Thank you for using Bankify!</h3>
+    <p class="py-4">You have successfully made the transfer. </p>
+    <div class="modal-action">
+     <a href="/dashboard" class="btn">Return</a>
+    </div>
   </div>
-
-  <div class="mb-6">
-    <Label for="input-group-1" class="block mb-2">Enter Recipient's Email</Label>
-    <Input id="email" type="email" placeholder="name@flowbite.com">
-    <svg slot="left" aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
-    </Input>
   </div>
-
-  
-  <Label>Select an option
-    <Select class="mt-2" items={accountType} bind:value={selected} />
-  </Label>
-
-
-  <div class='mb-6'>
-    <Label for='default-input' class='block mb-2'>Amount</Label>
-    <Input id='default-input' placeholder="$" />
+</div>
+      </form>
   </div>
-
- <Button href="/">Continue</Button>
-
-
-  

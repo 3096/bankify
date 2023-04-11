@@ -1,48 +1,66 @@
-<script>
-  import ValidInput from "$lib/components/forms/ValidInput.svelte";
-  import {  Heading, P, Button } from 'flowbite-svelte'
-  import { Label, Input, Select } from 'flowbite-svelte'
-
-
-
-  /**
-   * @type {any}
-   */
-  let selected;
-
-  let accountType = [
-    {value:"CA", name: "Checking Account"},
-    {value:"SA", name: "Savings Account"},
-  ]
-
-</script>
 
 <form action = "/dashboard">
-<button class="btn btn-square btn-outline">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
-  </button>
-</form>
+  <button class="btn btn-square btn-outline">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+    </button>
+  </form>
+          
 
+  <div class="container flex items-center justify-center min-h-screen px-6 mx-auto">
+      <form class="w-full max-w-md">
 
-<div  class="text-center">
+        <center><h1 class="text-5xl font-bold">Pay your Bill</h1></center>
+<br>
+      <div class="relative flex items-center mt-6">
+        <select class="select select-bordered w-full max-w-xs">
+          <option disabled selected>Select Account Type</option>
+          <option>Checkings</option>
+          <option>Savings</option>
+        </select>
+      </div>
+      
 
-  <Heading tag="h1" class="mb-4" customSize="text-3xl font-bold  md:text-3xl lg:text-3xl">Pay your Bills</Heading>
+                  
 
-  <P class="mb-6 text-lg lg:text-xl sm:px-16 xl:px-48  dark:text-gray-400">Account Type</P>
+        <style>
+          .currency-wrap{
+            position:relative;
+          }
+          
+          .currency-code{
+            position:absolute;
+            left:8px;
+            top:10px;
+          }
+          
+          .text-currency{
+            padding:10px 20px;
+            border:solid 1px #ccc;
+            border-radius:5px;
+          }
+        </style>
+        
+        <div class="relative flex items-center mt-6">
+        <div class="currency-wrap">
+          <span class="currency-code">$</span>
+          <input type="number" class="text-currency"/>
+        </div>
+        </div>
+  
+        <div class="relative flex items-center mt-6">
+
+        <!-- The button to open modal -->
+<a href="#my-modal-2" class="btn">Pay</a>
+<!-- Put this part before </body> tag -->
+<div class="modal" id="my-modal-2">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">Thank you for using Bankify!</h3>
+    <p class="py-4">You have successfully made a payment. </p>
+    <div class="modal-action">
+     <a href="/dashboard" class="btn">Return</a>
+    </div>
+  </div>
+  </div>
 </div>
-
-
-<Label>Select an option
-  <Select class="mt-2" items={accountType} bind:value={selected} />
-</Label>
-
-
-<div class='mb-6'>
-  <Label for='default-input' class='block mb-2'>Amount</Label>
-  <Input id='default-input' placeholder="$" />
-</div>
-
-<Button href="/dashboard">Home</Button>   <Button href="/">Continue</Button>
-
-
-
+      </form>
+  </div>

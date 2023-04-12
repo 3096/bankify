@@ -1,7 +1,7 @@
 import { LuciaError } from 'lucia-auth';
 import { fail, redirect, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { auth, validateAndCreateSession } from '$lib/server/lucia';
+import { auth, validateAndCreateSession } from '$lib/server/auth';
 import type { FormResultData } from '$lib/components/forms/types';
 import prisma from '$lib/server/prisma';
 import formSchema from './form-schema';
@@ -31,7 +31,7 @@ export const actions = {
         },
         attributes: undefined
       });
-      prisma.user.create({
+      await prisma.user.create({
         data: {
           id: userId,
           firstName: parseResult.data.firstName,

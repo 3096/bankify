@@ -12,7 +12,7 @@ declare global {
   }
 
   declare namespace Lucia {
-    type Auth = import('$lib/server/lucia').Auth;
+    type Auth = import('$lib/server/auth').Auth;
     type UserAttributes = undefined;
   }
 }

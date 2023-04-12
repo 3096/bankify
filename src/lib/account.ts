@@ -8,7 +8,7 @@ export const ACCOUNT_TYPE_NAMES: Record<AccountType, string | null> = {
 };
 
 export const ACCOUNT_DEFAULT_NAMES: Record<AccountType, string> = {
-  CHECKING: 'Prime Checking Plus',
+  CHECKING: 'Premier Plus Checking',
   SAVINGS: 'Velocity Savings',
   CREDIT: 'Elite Rewards Credit Card',
   LOAN: 'PersonalFlex Loan'

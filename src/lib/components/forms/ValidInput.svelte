@@ -6,27 +6,26 @@
   export let name: string;
   export let label: string;
   export let elementType: 'input' | 'select' = 'input';
+  export let value = '';
 
   type T = $$Generic<z.ZodRawShape>;
   let { formSchema, reportValid, broadcastError } = getContext<FormContext<T>>(key);
 
   let startNagging = false;
-  let inputStr = '';
 
   let errorHistory = new Map<string, string[]>();
   broadcastError.subscribe((namedErrors) => {
     if (name in namedErrors) {
-      errorHistory = errorHistory.set(inputStr, Array(...namedErrors[name]));
+      errorHistory = errorHistory.set(value, Array(...namedErrors[name]));
     }
   });
 
   $: schemaParseResult = formSchema
-    ? (formSchema.shape[name].safeParse(inputStr) as SafeParseReturnType<String, any>)
+    ? (formSchema.shape[name].safeParse(value) as SafeParseReturnType<String, any>)
     : null;
   $: showError =
-    startNagging &&
-    ((schemaParseResult && !schemaParseResult.success) || errorHistory.has(inputStr));
-  $: if (inputStr) {
+    startNagging && ((schemaParseResult && !schemaParseResult.success) || errorHistory.has(value));
+  $: if (value) {
     reportValid(name, !showError);
   }
 </script>
@@ -45,7 +44,7 @@
         ' select select-bordered'}
       class:select-error={showError}
       {...$$restProps}
-      bind:value={inputStr}
+      bind:value
       on:blur={() => {
         startNagging = true;
       }}
@@ -59,7 +58,7 @@
         ' input input-bordered'}
       class:input-error={showError}
       {...$$restProps}
-      bind:value={inputStr}
+      bind:value
       on:blur={() => {
         startNagging = true;
       }}
@@ -75,7 +74,7 @@
           </span>
         {/each}
       {/if}
-      {#each errorHistory.get(inputStr) || [] as message}
+      {#each errorHistory.get(value) || [] as message}
         <span class="font-medium label-text-alt text-red-500">
           {message}
         </span>

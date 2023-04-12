@@ -5,9 +5,6 @@
   import { commaSeparateNumber } from '$lib/utils';
 
   export let data: PageData;
-  let accountsSortedByCreationDate = data.user.accounts.sort(
-    (a, b) => a.createdAt.getDate() - b.createdAt.getDate()
-  );
 </script>
 
 <div class="overflow-x-auto">
@@ -18,10 +15,10 @@
     <br />
 
     <tbody>
-      {#each accountsSortedByCreationDate as account}
+      {#each data.user.accounts as account}
         <tr>
           <th />
-          <td><P size="3xl" weight="bold">{ACCOUNT_TYPE_NAMES[account.accountType]} Account</P></td>
+          <td><P size="3xl" weight="bold">{account.accountName}</P></td>
           <td><P size="xl" weight="medium">${commaSeparateNumber(account.currentBalance)}</P></td>
           <td />
         </tr>

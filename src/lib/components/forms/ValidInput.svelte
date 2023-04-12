@@ -37,33 +37,37 @@
     </span>
   </label>
 
-  {#if elementType === 'select'}
-    <select
-      {name}
-      class={($$restProps.class ?? 'w-full transition duration-200 ease-in-out') +
-        ' select select-bordered'}
-      class:select-error={showError}
-      {...$$restProps}
-      bind:value
-      on:blur={() => {
-        startNagging = true;
-      }}
-    >
-      <slot />
-    </select>
-  {:else if elementType === 'input'}
-    <input
-      {name}
-      class={($$restProps.class ?? 'w-full transition duration-200 ease-in-out') +
-        ' input input-bordered'}
-      class:input-error={showError}
-      {...$$restProps}
-      bind:value
-      on:blur={() => {
-        startNagging = true;
-      }}
-    />
-  {/if}
+  <div class:input-group={$$slots.prepend || $$slots.append}>
+    <slot name="prepend" />
+    {#if elementType === 'select'}
+      <select
+        {name}
+        class={($$restProps.class ?? 'w-full transition duration-200 ease-in-out') +
+          ' select select-bordered'}
+        class:select-error={showError}
+        {...$$restProps}
+        bind:value
+        on:blur={() => {
+          startNagging = true;
+        }}
+      >
+        <slot />
+      </select>
+    {:else if elementType === 'input'}
+      <input
+        {name}
+        class={($$restProps.class ?? 'w-full transition duration-200 ease-in-out') +
+          ' input input-bordered'}
+        class:input-error={showError}
+        {...$$restProps}
+        bind:value
+        on:blur={() => {
+          startNagging = true;
+        }}
+      />
+    {/if}
+    <slot name="append" />
+  </div>
 
   {#if showError}
     <label class="label" for={name}>

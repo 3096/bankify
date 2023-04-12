@@ -16,7 +16,7 @@
     : new Map<string, boolean>();
   $: hasInvalidFields = Array.from(validMap.values()).includes(false);
   let formErrorMessages: string[] = [];
-  let broadcastError = writable({} as NamedErrors);
+  export let broadcastError = writable({} as NamedErrors);
 
   setContext<FormContext<T>>(key, {
     formSchema,

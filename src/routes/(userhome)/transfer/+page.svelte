@@ -1,50 +1,61 @@
-<form action="/dashboard">
-  <button class="btn btn-square btn-outline">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="h-6 w-6"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M6 18L18 6M6 6l12 12"
-      />
-    </svg>
-  </button>
-</form>
+<script lang="ts">
+  import ValidForm from '$lib/components/forms/ValidForm.svelte';
+  import ValidInput from '$lib/components/forms/ValidInput.svelte';
+  import { formSchema } from './form';
+  import type { PageData } from './$types';
+  import { ACCOUNT_TYPE_ALLOWED_TO_SEND } from './types';
+  import { commaSeparateNumber } from '$lib/utils';
+  import type { BroadcastErrors } from '$lib/components/forms/types';
 
-<div class="container flex items-center justify-center min-h-screen px-6 mx-auto">
-  <form class="w-full max-w-md">
-    <center><h1 class="text-5xl font-bold">Transfer Funds</h1></center>
-    <br />
-    <br />
-    <br />
+  export let data: PageData;
+  let broadcastError: BroadcastErrors;
+  let selectedAccountNumberStr = '';
+  let amountStr = '';
+
+  $: if (selectedAccountNumberStr && amountStr) {
+    const selectedAccount = data.user.accounts.find(
+      (account) => account.accountNumber.toString() === selectedAccountNumberStr
+    );
+    const amountParse = formSchema.shape.amount.safeParse(amountStr);
+    if (amountParse.success) {
+      const amount = amountParse.data;
+      if (amount > selectedAccount!.currentBalance) {
+        broadcastError.set({ amount: ['Insufficient funds'] });
+      }
+    }
+  }
+</script>
+
+<div class="container flex items-center justify-center p-6 mx-auto">
+  <ValidForm class="w-full max-w-md" submitText="Transfer" {formSchema} bind:broadcastError>
+    <center><h1 class="text-5xl font-light tracking-tight mt-8 mb-16">Transfer Funds</h1></center>
 
     <div>
-      <label for="username" class="block text-sm text-black dark:text-black"
-        >Recipient's Account Number</label
-      >
-
-      <input
+      <ValidInput
+        name="recipientAccountNumber"
+        label="Recipient's Account Number"
         type="text"
         placeholder="e.g. 1"
-        class="block mt-2 w-full placeholder-gray-400/70 dark:placeholder-gray-500 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
       />
     </div>
 
-    <div class="relative flex items-center mt-6">
-      <select class="select select-bordered w-full max-w-xs">
-        <option disabled selected>Select Account Type</option>
-        <option>Checkings</option>
-        <option>Savings</option>
-      </select>
+    <div class="items-center mt-3">
+      <ValidInput
+        name="senderAccountNumber"
+        label="Transfer from"
+        elementType="select"
+        bind:value={selectedAccountNumberStr}
+      >
+        <option disabled selected>Select an Account</option>
+        {#each data.user.accounts.filter((account) => ACCOUNT_TYPE_ALLOWED_TO_SEND[account.accountType]) as account}
+          <option value={account.accountNumber.toString()}>
+            {account.accountName} - Balance ${commaSeparateNumber(account.currentBalance)}
+          </option>
+        {/each}
+      </ValidInput>
     </div>
 
-    <style>
+    <!-- <style>
       .currency-wrap {
         position: relative;
       }
@@ -67,13 +78,20 @@
         <span class="currency-code">$</span>
         <input type="number" class="text-currency" />
       </div>
+    </div> -->
+
+    <div class="mt-3">
+      <ValidInput name="amount" label="Amount" type="number" bind:value={amountStr}>
+        <span slot="prepend">$</span>
+        <!-- <span slot="append">USD</span> -->
+      </ValidInput>
     </div>
 
-    <div class="relative flex items-center mt-6">
+    <div class="relative flex items-center mt-3">
       <!-- The button to open modal -->
-      <a href="#my-modal-2" class="btn">Transfer</a>
+      <!-- <a href="#transfer-success" class="btn">Transfer</a> -->
       <!-- Put this part before </body> tag -->
-      <div class="modal" id="my-modal-2">
+      <div class="modal" id="transfer-success">
         <div class="modal-box">
           <h3 class="font-bold text-lg">Thank you for using Bankify!</h3>
           <p class="py-4">You have successfully made the transfer.</p>
@@ -83,5 +101,5 @@
         </div>
       </div>
     </div>
-  </form>
+  </ValidForm>
 </div>

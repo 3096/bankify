@@ -11,6 +11,7 @@
   let broadcastError: BroadcastErrors;
   let selectedAccountNumberStr = '';
   let amountStr = '';
+  let transferSuccess = false;
 
   $: if (selectedAccountNumberStr && amountStr) {
     const selectedAccount = data.user.accounts.find(
@@ -27,7 +28,15 @@
 </script>
 
 <div class="container flex items-center justify-center p-6 mx-auto">
-  <ValidForm class="w-full max-w-md" submitText="Transfer" {formSchema} bind:broadcastError>
+  <ValidForm
+    class="w-full max-w-md"
+    submitText="Transfer"
+    {formSchema}
+    bind:broadcastError
+    onSuccess={() => {
+      transferSuccess = true;
+    }}
+  >
     <center><h1 class="text-5xl font-light tracking-tight mt-8 mb-16">Transfer Funds</h1></center>
 
     <div>
@@ -88,10 +97,8 @@
     </div>
 
     <div class="relative flex items-center mt-3">
-      <!-- The button to open modal -->
-      <!-- <a href="#transfer-success" class="btn">Transfer</a> -->
-      <!-- Put this part before </body> tag -->
-      <div class="modal" id="transfer-success">
+      <input type="checkbox" id="my-modal" class="modal-toggle" bind:checked={transferSuccess} />
+      <div class="modal">
         <div class="modal-box">
           <h3 class="font-bold text-lg">Thank you for using Bankify!</h3>
           <p class="py-4">You have successfully made the transfer.</p>

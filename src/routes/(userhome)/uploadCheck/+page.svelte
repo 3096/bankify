@@ -10,12 +10,19 @@
   let placeholder;
 	let showImage = false;
   let file;
+  let validType = false;
 
   function onChange() {
     file = input.files[0];
+
+    if (!(file.name.endsWith(".png") || file.name.endsWith(".jpeg") || file.name.endsWith(".jpg"))) {
+      console.log(file.name + " - invalid file type");
+      return;
+    }
 		
     if (file) {
-      console.log(typeof file);
+      validType = true;
+      console.log(file.name);
 			showImage = true;
 
       const reader = new FileReader();
@@ -47,7 +54,7 @@
   </div>
   <br>
   <input type="file" id="myFile" class="file-input file-input-bordered" name="filename" accept=".png, .jpeg, .jpg" bind:this={input} on:change={onChange}>
-  {#if file}
+  {#if file && validType}
   <a href = "/uploadCheckConfirm">
     <input type="submit" class = "btn" accept=".png, .jpeg, .jpg" value = "Submit and Continue">
   </a>

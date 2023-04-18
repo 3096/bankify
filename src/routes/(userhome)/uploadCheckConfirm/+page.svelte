@@ -22,6 +22,16 @@
 <br>
 
 <form>
+  <input type = "text" placeholder = "Account Number" class = "input input-bordered">
+  <input type = "text" placeholder = "Routing Number" class = "input input-bordered">
+  <input type = "text" placeholder = "Check Number" class = "input input-bordered">
+  <input type = "text" placeholder = "Amount" class = "input input-bordered">
+  <br>
+  <input type = "submit" class = "btn">
+</form>
+<br>
+
+<form>
   <button class="btn" on:click = {retrieveImage}>Show uploaded image test</button>
 </form>
 <div>

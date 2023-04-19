@@ -9,7 +9,8 @@
   export let submitText: string;
   type T = $$Generic<z.ZodRawShape>;
   export let formSchema: ReturnType<typeof z.object<T>> | null = null;
-  export let onSuccess = () => {};
+  type FormResultType = $$Generic<Record<string, unknown>>;
+  export let onSuccess: (data: FormResultType) => void = () => {};
 
   let validMap = formSchema
     ? new Map(Object.entries(formSchema.shape).map(([key, value]) => [key, value.isOptional()]))
@@ -33,7 +34,7 @@
     ({ result }) => {
       switch (result.type) {
         case 'success':
-          onSuccess();
+          onSuccess(result.data!);
           return;
         case 'failure':
           if (result.data!.errorMessages !== undefined) {
@@ -44,7 +45,7 @@
           }
           return;
       }
-    }) satisfies SubmitFunction<undefined, FormResultData>;
+    }) satisfies SubmitFunction<FormResultType, FormResultData>;
 </script>
 
 <form method="POST" use:enhance={enhanceForm}>

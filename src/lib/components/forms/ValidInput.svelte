@@ -13,18 +13,33 @@
 
   let startNagging = false;
 
-  let errorHistory = new Map<string, string[]>();
+  let errorValue: null | string = null;
+  let errorMessages: null | string[] = null;
   broadcastError.subscribe((namedErrors) => {
     if (name in namedErrors) {
-      errorHistory = errorHistory.set(value, Array(...namedErrors[name]));
+      errorValue = value;
+      errorMessages = namedErrors[name];
+    } else {
+      errorValue = null;
+      errorMessages = null;
     }
   });
+
+  const onInput = (e: Event) => {
+    if (value !== errorValue) {
+      errorValue = null;
+      errorMessages = null;
+    }
+  };
+  const onBlur = () => {
+    startNagging = true;
+  };
 
   $: schemaParseResult = formSchema
     ? (formSchema.shape[name].safeParse(value) as SafeParseReturnType<String, any>)
     : null;
   $: showError =
-    startNagging && ((schemaParseResult && !schemaParseResult.success) || errorHistory.has(value));
+    startNagging && ((schemaParseResult && !schemaParseResult.success) || errorMessages !== null);
   $: if (value) {
     reportValid(name, !showError);
   }
@@ -47,9 +62,8 @@
         class:select-error={showError}
         {...$$restProps}
         bind:value
-        on:blur={() => {
-          startNagging = true;
-        }}
+        on:input={onInput}
+        on:blur={onBlur}
       >
         <slot />
       </select>
@@ -61,9 +75,8 @@
         class:input-error={showError}
         {...$$restProps}
         bind:value
-        on:blur={() => {
-          startNagging = true;
-        }}
+        on:input={onInput}
+        on:blur={onBlur}
       />
     {/if}
     <slot name="append" />
@@ -78,7 +91,7 @@
           </span>
         {/each}
       {/if}
-      {#each errorHistory.get(value) || [] as message}
+      {#each errorMessages || [] as message}
         <span class="font-medium label-text-alt text-red-500">
           {message}
         </span>

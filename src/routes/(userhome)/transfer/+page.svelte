@@ -11,6 +11,7 @@
   let broadcastError: BroadcastErrors;
   let selectedAccountNumberStr = '';
   let amountStr = '';
+  let recipientAccountNumberStr = '';
   let transferSuccess = false;
 
   $: if (selectedAccountNumberStr && amountStr) {
@@ -23,6 +24,14 @@
       if (amount > selectedAccount!.currentBalance) {
         broadcastError.set({ amount: ['Insufficient funds'] });
       }
+    }
+  }
+
+  $: if (broadcastError) {
+    if (parseInt(selectedAccountNumberStr) === parseInt(recipientAccountNumberStr)) {
+      broadcastError.set({ recipientAccountNumber: ['Cannot transfer to the same account'] });
+    } else {
+      broadcastError.set({});
     }
   }
 </script>
@@ -45,6 +54,7 @@
         label="Recipient's Account Number"
         type="text"
         placeholder="e.g. 1"
+        bind:value={recipientAccountNumberStr}
       />
     </div>
 

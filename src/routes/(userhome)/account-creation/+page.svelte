@@ -11,11 +11,17 @@
     accountTypeSeletion in AccountTypes
       ? ACCOUNT_DEFAULT_NAMES[accountTypeSeletion as AccountType]
       : '';
+
+  const ALLOWED_TO_CREATE = [AccountTypes.CHECKING, AccountTypes.SAVINGS, AccountTypes.CREDIT];
 </script>
 
 <div class="max-w-md mx-auto my-10 bg-white p-8 rounded shadow-md">
   <h2 class="text-2xl font-medium mb-4">Create an Account</h2>
-  <ValidForm class="grid gap-3" submitText="Create Account" onSuccess={() => goto('/account')}>
+  <ValidForm
+    class="grid gap-3"
+    submitText="Create Account"
+    onSuccess={({ accountNumber }) => goto('/account/' + accountNumber)}
+  >
     <ValidInput
       label="Select an account type"
       name="accountType"
@@ -24,10 +30,8 @@
       required
       bind:value={accountTypeSeletion}
     >
-      {#each Object.entries(ACCOUNT_TYPE_NAMES) as [key, value]}
-        {#if value}
-          <option value={key}>{value}</option>
-        {/if}
+      {#each ALLOWED_TO_CREATE as accountType}
+        <option value={accountType}>{ACCOUNT_TYPE_NAMES[accountType]}</option>
       {/each}
     </ValidInput>
     <ValidInput

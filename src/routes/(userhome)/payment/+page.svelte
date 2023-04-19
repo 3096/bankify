@@ -16,9 +16,9 @@
   </button>
 </form>
 
-<div class="container flex items-center justify-center min-h-screen px-6 mx-auto">
+<div class="container flex items-center justify-center px-6 mx-auto">
   <form class="w-full max-w-md">
-    <center><h1 class="text-5xl font-bold">Pay your Bill</h1></center>
+    <center><h1 class="text-5xl font-light tracking-tight mt-8 mb-16">Pay your Bill</h1></center>
     <br />
     <div class="relative flex items-center mt-6">
       <select class="select select-bordered w-full max-w-xs">

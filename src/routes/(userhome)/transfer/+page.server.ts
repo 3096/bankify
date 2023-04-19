@@ -4,6 +4,7 @@ import prisma from '$lib/server/prisma';
 import { formSchema } from './form';
 import type { FormResultData } from '$lib/components/forms/types';
 import { fail, type ActionFailure } from '@sveltejs/kit';
+import { TransactionErrorInsufficientFunds, createTransaction } from '$lib/server/transaction';
 
 export const load: PageServerLoad = async ({ locals }) => {
   const userId = await validateSessionAndGetUserOrThrowRedirect(locals);
@@ -29,46 +30,29 @@ export const actions = {
       return fail<FormResultData>(400, { errorMessages: ['Invalid form data'] });
     }
 
+    const { senderAccountNumber, recipientAccountNumber, amount } = parseResult.data;
+
     const senderAccount = await prisma.account.findUniqueOrThrow({
-      where: { accountNumber: parseResult.data.senderAccountNumber }
+      where: { accountNumber: senderAccountNumber }
     });
     if (senderAccount.userId !== userId) {
       return fail<FormResultData>(403, { errorMessages: ['Forbidden'] });
     }
-    if (senderAccount.currentBalance < parseResult.data.amount) {
-      return fail<FormResultData>(400, { errorMessages: ['Insufficient funds'] });
+
+    try {
+      await createTransaction(
+        senderAccountNumber,
+        recipientAccountNumber,
+        amount,
+        'TRANSFER',
+        'Transfer'
+      );
+    } catch (e) {
+      if (e instanceof TransactionErrorInsufficientFunds) {
+        return fail<FormResultData>(400, { errorMessages: ['Insufficient funds'] });
+      }
+      console.error(e);
+      return fail<FormResultData>(500, { errorMessages: ['Internal server error'] });
     }
-
-    const recipientAccount = await prisma.account.findUniqueOrThrow({
-      where: { accountNumber: parseResult.data.recipientAccountNumber }
-    });
-
-    await prisma.$transaction([
-      prisma.account.update({
-        where: { accountNumber: senderAccount.accountNumber },
-        data: {
-          currentBalance: {
-            decrement: parseResult.data.amount
-          }
-        }
-      }),
-      prisma.account.update({
-        where: { accountNumber: recipientAccount.accountNumber },
-        data: {
-          currentBalance: {
-            increment: parseResult.data.amount
-          }
-        }
-      }),
-      prisma.transaction.create({
-        data: {
-          amount: parseResult.data.amount,
-          senderAccountNumber: senderAccount.accountNumber,
-          recipientAccountNumber: recipientAccount.accountNumber,
-          description: 'Transfer',
-          transactionType: 'TRANSFER'
-        }
-      })
-    ]);
   }
 } satisfies Actions<void | ActionFailure<FormResultData>>;

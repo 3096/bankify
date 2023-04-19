@@ -75,6 +75,7 @@ enum AccountType {
   SAVINGS
   CREDIT
   LOAN
+  INTERNAL
 }
 
 model Account {

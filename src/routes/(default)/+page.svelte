@@ -20,9 +20,9 @@
     </ValidForm>
     <div class="flex">
       <span>
-        Need an account?<a href="/register" class="ml-1.5 text-blue-500 hover:text-primary-800"
-          >Register</a
-        >
+        Need an account?<a href="/register" class="ml-1.5 text-blue-500 hover:text-primary-800">
+          Register
+        </a>
       </span>
     </div>
   </div>

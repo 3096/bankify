@@ -60,7 +60,7 @@
       <h2 class="card-title">Schedule Appointment</h2>
       <p>Meet with one of our representatives!</p>
       <div class="card-actions justify-end">
-        <button class="btn btn-primary">Schedule now!</button>
+        <a class="btn btn-primary" href="/customerrep">Schedule Now!</a>
       </div>
     </div>
   </div>

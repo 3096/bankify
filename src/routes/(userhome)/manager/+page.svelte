@@ -53,8 +53,14 @@
     <div class = "results">
       {#each data.user as userAccount}
         <tr>
-
+          {userAccount.firstName} {userAccount.id}
         </tr>
+      {/each}
+      <br>
+      {#each data.trans as purchase}
+      <tr>
+        {purchase.id} {purchase.description}
+      </tr>
       {/each}
     </div>
   </div>

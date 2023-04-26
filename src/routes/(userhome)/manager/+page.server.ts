@@ -4,12 +4,13 @@ import prisma from '$lib/server/prisma';
 
 export const load: PageServerLoad = async ({ locals }) => {
   const userId = await validateSessionAndGetUserOrThrowRedirect(locals);
-  const user = await prisma.user.findMany({
-    include: {
-      accounts: {
-        orderBy: { createdAt: 'asc' }
-      }
-    }
-  });
-  return { user };
+  const user = await prisma.user.findMany();
+  const trans = await prisma.transaction.findMany();
+
+  // async function yolo(){
+  //   return await prisma.transaction.findMany();
+  // }
+
+  return { user, trans };
 };
+

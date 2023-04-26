@@ -1,6 +1,10 @@
 <script lang="ts">
     //needs something to check isManager. only managers/bankify employees should be able to access this page
+  import { Button, Heading, P, Span } from 'flowbite-svelte';
+  import type { PageData } from './$types';
+  import { commaSeparateNumber } from '$lib/utils';
 
+  export let data: PageData;
 </script>
 
 <style>
@@ -47,7 +51,11 @@
   </div>
   <div class = "column h-full">Query Results
     <div class = "results">
-      test
+      {#each data.user as userAccount}
+        <tr>
+
+        </tr>
+      {/each}
     </div>
   </div>
 </div>

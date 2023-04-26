@@ -75,6 +75,7 @@ enum AccountType {
   SAVINGS
   CREDIT
   LOAN
+  INTERNAL
 }
 
 model Account {
@@ -82,6 +83,7 @@ model Account {
   accountType          AccountType
   user                 User          @relation(references: [id], fields: [userId], onDelete: Cascade)
   userId               String
+  accountName          String
   currentBalance       Int           @default(0)
   sentTransactions     Transaction[] @relation("SenderAccount")
   receivedTransactions Transaction[] @relation("RecipientAccount")
@@ -131,6 +133,5 @@ model Transaction {
 //   account_activation_date DateTime
 //   total_balance           Int
 // }
-
 
 //Added on 04-05-2023

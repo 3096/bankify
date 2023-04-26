@@ -6,7 +6,11 @@ export const load: PageServerLoad = async ({ locals }) => {
   const userId = await validateSessionAndGetUserOrThrowRedirect(locals);
   const user = await prisma.user.findUniqueOrThrow({
     where: { id: userId },
-    include: { accounts: true }
+    include: {
+      accounts: {
+        orderBy: { createdAt: 'asc' }
+      }
+    }
   });
   return { user };
 };

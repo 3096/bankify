@@ -15,4 +15,6 @@
 <P size="6xl" weight="black"><center>Congratulations! <br>
     Your deal for Starbucks has been activated.</center></P>
 
+    <center><img src ="sbuxdeal.png" alt="Starbucks" class="center" style="width:300px;height:300px;"></center>
+
     

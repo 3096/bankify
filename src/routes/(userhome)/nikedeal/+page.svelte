@@ -14,4 +14,7 @@
     
 <P size="6xl" weight="black"><center>Congratulations! <br>
     Your deal for Nike has been activated.</center></P> 
+
+    <center><img src ="nikedeal.jpeg" alt="Nike" class="center" style="width:300px;height:300px;"></center>
+
     

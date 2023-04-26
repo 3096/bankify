@@ -13,4 +13,8 @@
 
 <P size="6xl" weight="black"><center>Congratulations! <br>
     Your deal for Target has been activated.</center></P>
+
+    
+    <center><img src ="targetdeal.png" alt="Target" class="center" style="width:230px;height:300px;"></center>
+
     

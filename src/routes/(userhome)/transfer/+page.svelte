@@ -1,51 +1,139 @@
-<script>
-    import ValidInput from "$lib/components/forms/ValidInput.svelte";
-    import {  Heading, P, Button } from 'flowbite-svelte'
-    import { Label, Input, Select } from 'flowbite-svelte'
+<script lang="ts">
+  import ValidForm from '$lib/components/forms/ValidForm.svelte';
+  import ValidInput from '$lib/components/forms/ValidInput.svelte';
+  import { formSchema } from './form';
+  import type { PageData } from './$types';
+  import { ACCOUNT_TYPE_ALLOWED_TO_SEND } from './types';
+  import { commaSeparateNumber } from '$lib/utils';
+  import type { BroadcastErrors } from '$lib/components/forms/types';
 
-    /**
-     * @type {any}
-     */
-    let selected;
-  
-    let accountType = [
-      {value:"CA", name: "Checking Account"},
-      {value:"SA", name: "Savings Account"},
-    ]
+  export let data: PageData;
+  let broadcastError: BroadcastErrors;
+  let selectedAccountNumberStr = '';
+  let amountStr = '';
+  let recipientAccountNumberStr = '';
+  let transferSuccess = false;
 
+  $: if (selectedAccountNumberStr && amountStr) {
+    const selectedAccount = data.user.accounts.find(
+      (account) => account.accountNumber.toString() === selectedAccountNumberStr
+    );
+    const amountParse = formSchema.shape.amount.safeParse(amountStr);
+    if (amountParse.success) {
+      const amount = amountParse.data;
+      if (amount > selectedAccount!.currentBalance) {
+        broadcastError.set({ amount: ['Insufficient funds'] });
+      }
+    }
+  }
+
+  $: if (broadcastError) {
+    if (parseInt(selectedAccountNumberStr) === parseInt(recipientAccountNumberStr)) {
+      broadcastError.set({ recipientAccountNumber: ['Cannot transfer to the same account'] });
+    } else {
+      broadcastError.set({});
+    }
+  }
 </script>
-
-<form action = "/dashboard">
+<form action="/dashboard">
   <button class="btn btn-square btn-outline">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
-    </button>
-  </form>
-  
-  <div  class="text-center">
-    <Heading tag="h1" class="mb-4" customSize="text-4xl font-normal  md:text-5xl lg:text-2xl">Transfer Funds</Heading>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      ><path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M6 18L18 6M6 6l12 12"
+      /></svg
+    >
+  </button>
+</form>
 
-    <P class="mb-6 text-lg lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">Recipient</P>
-  </div>
+<div class="container flex items-center justify-center p-6 mx-auto">
+  <ValidForm
+    class="w-full max-w-md"
+    submitText="Transfer"
+    {formSchema}
+    bind:broadcastError
+    onSuccess={() => {
+      transferSuccess = true;
+    }}
+  >
+    <center><h1 class="text-5xl font-light tracking-tight mt-8 mb-16">Transfer Funds</h1></center>
 
-  <div class="mb-6">
-    <Label for="input-group-1" class="block mb-2">Enter Recipient's Email</Label>
-    <Input id="email" type="email" placeholder="name@flowbite.com">
-    <svg slot="left" aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
-    </Input>
-  </div>
+    <div>
+      <ValidInput
+        name="recipientAccountNumber"
+        label="Recipient's Account Number"
+        type="text"
+        placeholder="e.g. 1"
+        bind:value={recipientAccountNumberStr}
+      />
+    </div>
 
-  
-  <Label>Select an option
-    <Select class="mt-2" items={accountType} bind:value={selected} />
-  </Label>
+    <div class="items-center mt-3">
+      <ValidInput
+        name="senderAccountNumber"
+        label="Transfer from"
+        elementType="select"
+        bind:value={selectedAccountNumberStr}
+      >
+        <option disabled selected>Select an Account</option>
+        {#each data.user.accounts.filter((account) => ACCOUNT_TYPE_ALLOWED_TO_SEND[account.accountType]) as account}
+          <option value={account.accountNumber.toString()}>
+            {account.accountName} - Balance ${commaSeparateNumber(account.currentBalance)}
+          </option>
+        {/each}
+      </ValidInput>
+    </div>
 
+    <!-- <style>
+      .currency-wrap {
+        position: relative;
+      }
 
-  <div class='mb-6'>
-    <Label for='default-input' class='block mb-2'>Amount</Label>
-    <Input id='default-input' placeholder="$" />
-  </div>
+      .currency-code {
+        position: absolute;
+        left: 8px;
+        top: 10px;
+      }
 
-  <Button href="/">Continue</Button>
+      .text-currency {
+        padding: 10px 20px;
+        border: solid 1px #ccc;
+        border-radius: 5px;
+      }
+    </style>
 
+    <div class="relative flex items-center mt-6">
+      <div class="currency-wrap">
+        <span class="currency-code">$</span>
+        <input type="number" class="text-currency" />
+      </div>
+    </div> -->
 
-  
+    <div class="mt-3">
+      <ValidInput name="amount" label="Amount" type="number" bind:value={amountStr}>
+        <span slot="prepend">$</span>
+        <!-- <span slot="append">USD</span> -->
+      </ValidInput>
+    </div>
+
+    <div class="relative flex items-center mt-3">
+      <input type="checkbox" id="my-modal" class="modal-toggle" bind:checked={transferSuccess} />
+      <div class="modal">
+        <div class="modal-box">
+          <h3 class="font-bold text-lg">Thank you for using Bankify!</h3>
+          <p class="py-4">You have successfully made the transfer.</p>
+          <div class="modal-action">
+            <a href="/dashboard" class="btn">Return</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ValidForm>
+</div>

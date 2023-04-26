@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { Heading, P, Span } from 'flowbite-svelte';
+  import { Button, Heading, P, Span } from 'flowbite-svelte';
   import type { PageData } from './$types';
-  import { ACCOUNT_TYPE_NAMES } from '$lib/account';
+  import { commaSeparateNumber } from '$lib/utils';
 
   export let data: PageData;
 </script>
@@ -17,9 +17,10 @@
       {#each data.user.accounts as account}
         <tr>
           <th />
-          <td><P size="3xl" weight="bold">{ACCOUNT_TYPE_NAMES[account.accountType]} Account</P></td>
-          <td><P size="xl" weight="medium">${account.currentBalance}</P></td>
-          <td />
+          <td>
+            <a href="/account/{account.accountNumber}" class="text-3xl">{account.accountName}</a>
+          </td>
+          <td><P size="xl" weight="medium">${commaSeparateNumber(account.currentBalance)}</P></td>
         </tr>
       {/each}
     </tbody>
@@ -64,8 +65,5 @@
     <form action="/nikedeal">
       <button class="btn btn-info">Activate</button>
     </form>
-  </div>
-  <div class=" text-5xl font-bold text-center text-blue-600">
-    <a href="/logout">Click to logout</a>
   </div>
 </div>

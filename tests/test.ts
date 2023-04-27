@@ -1,24 +1,48 @@
 import { expect, test } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test';
+
+export default defineConfig({
+  projects: [
+    /* Test against branded browsers. */
+    {
+      name: 'Google Chrome',
+      use: { ...devices['Desktop Chrome'], channel: 'chrome' }, // or 'chrome-beta'
+    },
+    {
+      name: 'Microsoft Edge',
+      use: { ...devices['Desktop Edge'], channel: 'msedge' }, // or "msedge-beta" or 'msedge-dev'
+    },
+  ],
+});
 
 test('basic test', async ({ page }) => {
   await page.goto('/');
-  await page.getByLabel('email').fill('name');
-  await page.getByLabel('password').fill('name');
-  await page.getByText('Sign in').click();
+  await page.click('input[name="email"]');
+  await page.locator('input[name="email"]').fill('cheese@soup.com');
+  await page.click('input[name="password"]');
+  await page.locator('input[name="password"]').fill('maccaroni');
+  await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
   // ...
 });
 
-/*test('register test', async ({ page }) => {
+test('register test', async ({ page }) => {
+
   await page.goto('/register');
-  await page.getByLabel('First Name').fill('name');
-  await page.getByLabel('Last Name').fill('name');
-  await page.getByLabel('Email').fill('name');
-  await page.getByLabel('Password').fill('name');
-  await page.getByText('Sign in').click();
+  await page.click('input[name="firstName"]');
+  await page.locator('input[name="firstName"]').fill('Spongebob');
+  await page.click('input[name="lastName"]');
+  await page.locator('input[name="lastName"]').fill('Squarepants');
+  await page.click('input[name="email"]');
+  await page.locator('input[name="email"]').fill('spongeboy@bikinibottom.com');
+  await page.click('input[name="password"]');
+  await page.locator('input[name="password"]').fill('TheFormula');
+  await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
   // ...
 });
 
-test('account creation test', async ({ page }) => {
+
+
+/*test('account creation test', async ({ page }) => {
   await page.goto('/account-creation');
   await page.getByLabel('First Name').fill('name');
   await page.getByLabel('Last Name').fill('name');

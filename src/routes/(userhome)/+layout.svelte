@@ -6,6 +6,7 @@
     <ul class="menu menu-horizontal px-1">
       <li><a href="/dashboard">Accounts</a></li>
       <li><a href="/transfer">Transfer</a></li>
+      <li><a href = "/uploadCheck" target ="_parent">Upload Check</a></li>
       <li><a href="/payment">Bill Pay</a></li>
       <li><a href="/account-creation">Open an Account</a></li>
       <li><a href="/logout">Log Out</a></li>

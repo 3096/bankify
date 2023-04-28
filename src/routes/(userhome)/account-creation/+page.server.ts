@@ -1,6 +1,6 @@
 import type { Actions, PageServerLoad } from './$types';
 import { validateSessionAndGetUserOrThrowRedirect } from '$lib/server/auth';
-import type { FormResultData } from '$lib/components/forms/types';
+import type { FormErrorData } from '$lib/components/forms/types';
 import { formSchema, type FormResult } from './form';
 import { fail, type ActionFailure } from '@sveltejs/kit';
 import prisma from '$lib/server/prisma';
@@ -19,7 +19,7 @@ export const actions = {
       Object.fromEntries((await request.formData()).entries())
     );
     if (!parseResult.success) {
-      return fail<FormResultData>(400, { errorMessages: ['Invalid form data'] });
+      return fail<FormErrorData>(400, { errorMessages: ['Invalid form data'] });
     }
 
     const accountName =
@@ -35,4 +35,4 @@ export const actions = {
 
     return { accountNumber: account.accountNumber };
   }
-} satisfies Actions<FormResult | ActionFailure<FormResultData>>;
+} satisfies Actions<FormResult | ActionFailure<FormErrorData>>;

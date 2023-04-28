@@ -2,7 +2,7 @@ import type { Writable } from 'svelte/store';
 
 export type NamedErrors = Record<string, string[]>;
 
-export type FormResultData = {
+export type FormErrorData = {
   errorMessages?: string[];
   namedErrors?: NamedErrors;
 };

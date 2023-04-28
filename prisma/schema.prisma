@@ -51,6 +51,7 @@ model User {
   firstName   String
   lastName    String?
   isManager   Boolean?
+  isPartner   Boolean?
   dateOfBirth DateTime?
   phoneNumber Int?
   accounts    Account[]

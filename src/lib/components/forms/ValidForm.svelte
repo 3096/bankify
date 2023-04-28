@@ -3,7 +3,7 @@
   import type { z } from 'zod';
   import { enhance, type SubmitFunction } from '$app/forms';
   import { key, type FormContext } from './context';
-  import type { FormResultData, NamedErrors } from './types';
+  import type { FormErrorData, NamedErrors } from './types';
   import { writable } from 'svelte/store';
 
   export let submitText: string;
@@ -45,7 +45,7 @@
           }
           return;
       }
-    }) satisfies SubmitFunction<FormResultType, FormResultData>;
+    }) satisfies SubmitFunction<FormResultType, FormErrorData>;
 </script>
 
 <form method="POST" use:enhance={enhanceForm}>

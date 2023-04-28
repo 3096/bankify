@@ -2,7 +2,7 @@ import { LuciaError } from 'lucia-auth';
 import { fail, redirect, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { auth, validateAndCreateSession } from '$lib/server/auth';
-import type { FormResultData } from '$lib/components/forms/types';
+import type { FormErrorData } from '$lib/components/forms/types';
 import prisma from '$lib/server/prisma';
 import formSchema from './form-schema';
 
@@ -19,7 +19,7 @@ export const actions = {
 
     const parseResult = formSchema.safeParse(Object.fromEntries(formData.entries()));
     if (!parseResult.success) {
-      return fail<FormResultData>(400, { errorMessages: ['Invalid form data'] });
+      return fail<FormErrorData>(400, { errorMessages: ['Invalid form data'] });
     }
 
     try {
@@ -47,14 +47,14 @@ export const actions = {
     } catch (error) {
       if (error instanceof LuciaError) {
         if (error.message === 'AUTH_DUPLICATE_KEY_ID') {
-          return fail<FormResultData>(400, {
+          return fail<FormErrorData>(400, {
             namedErrors: { email: ['Email already in use'] }
           });
         }
       }
 
       console.error(error);
-      return fail<FormResultData>(500, {
+      return fail<FormErrorData>(500, {
         errorMessages: ['Unknown server error occurred']
       });
     }

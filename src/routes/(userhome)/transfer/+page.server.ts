@@ -2,7 +2,7 @@ import type { Actions, PageServerLoad } from './$types';
 import { validateSessionAndGetUserOrThrowRedirect } from '$lib/server/auth';
 import prisma from '$lib/server/prisma';
 import { formSchema } from './form';
-import type { FormResultData } from '$lib/components/forms/types';
+import type { FormErrorData } from '$lib/components/forms/types';
 import { fail, type ActionFailure } from '@sveltejs/kit';
 import { TransactionErrorInsufficientFunds, createTransaction } from '$lib/server/transaction';
 
@@ -27,7 +27,7 @@ export const actions = {
       Object.fromEntries((await request.formData()).entries())
     );
     if (!parseResult.success) {
-      return fail<FormResultData>(400, { errorMessages: ['Invalid form data'] });
+      return fail<FormErrorData>(400, { errorMessages: ['Invalid form data'] });
     }
 
     const { senderAccountNumber, recipientAccountNumber, amount } = parseResult.data;
@@ -36,7 +36,7 @@ export const actions = {
       where: { accountNumber: senderAccountNumber }
     });
     if (senderAccount.userId !== userId) {
-      return fail<FormResultData>(403, { errorMessages: ['Forbidden'] });
+      return fail<FormErrorData>(403, { errorMessages: ['Forbidden'] });
     }
 
     try {
@@ -49,10 +49,10 @@ export const actions = {
       );
     } catch (e) {
       if (e instanceof TransactionErrorInsufficientFunds) {
-        return fail<FormResultData>(400, { errorMessages: ['Insufficient funds'] });
+        return fail<FormErrorData>(400, { errorMessages: ['Insufficient funds'] });
       }
       console.error(e);
-      return fail<FormResultData>(500, { errorMessages: ['Internal server error'] });
+      return fail<FormErrorData>(500, { errorMessages: ['Internal server error'] });
     }
   }
-} satisfies Actions<void | ActionFailure<FormResultData>>;
+} satisfies Actions<void | ActionFailure<FormErrorData>>;

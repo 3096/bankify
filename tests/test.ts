@@ -40,7 +40,30 @@ test('register test', async ({ page }) => {
   // ...
 });
 
+test('dashboard target test', async ({ page }) => {
+  await page.goto('/dashboard');
+  await page.locator('form[action="/targetdeal"]').locator('button[class="btn btn-info"]').click;
+  // ...
+  
+});
 
+test('dashboard starbucks test', async ({ page }) => {
+  await page.goto('/dashboard');
+  await page.locator('form[action="/starbucksdeal"]').locator('button[class="btn btn-info"]').click;
+  // ...
+  /* await expect(async () => {
+    expect(page.url()).toBe("/starbucksdeal");
+  }).toPass(); */
+});
+
+test('dashboard nike test', async ({ page }) => {
+  await page.goto('/dashboard');
+  await page.locator('form[action="/nikedeal"]').locator('button[class="btn btn-info"]').click;
+  // ...
+  /* await expect(async () => {
+    expect(page.url()).toBe("/nikedeal");
+  }).toPass(); */
+});
 
 /*test('account creation test', async ({ page }) => {
   await page.goto('/account-creation');

@@ -3,8 +3,13 @@
   import { Button, Heading, P, Span } from 'flowbite-svelte';
   import type { PageData } from './$types';
   import { commaSeparateNumber } from '$lib/utils';
+    import ValidForm from '$lib/components/forms/ValidForm.svelte';
+    import ValidInput from '$lib/components/forms/ValidInput.svelte';
+    import { accountFormSchema, emailFormSchema } from './form';
 
   export let data: PageData;
+
+  let querySuccess = false;
 </script>
 
 <style>
@@ -21,7 +26,7 @@
 
 <div class = "row">
   <div class = "column">
-    <form>
+    <!-- <form>
         Search by User
         <br>
         <input type="text" placeholder="First Name">
@@ -32,22 +37,45 @@
         <input type="text" placeholder="Phone Number">
         <br>
         <input type="submit" class = "btn" value = "Query">
-    </form>
+    </form> -->
     <br>
-    <form>
-        Search by Account
-        <br>
-        <input type="text" placeholder="Account Number">
-        <select class="select select-bordered">
-          <option selected>Select Account Type</option>
-          <option>Checking</option>
-          <option>Savings</option>
-          <option>Credit</option>
-          <option>Loan</option>
-        </select>
-        <br>
-        <input type="submit" class = "btn" value = "Query">
-    </form>
+
+    <ValidForm
+    class="w-full max-w-md"
+    submitText="Query"
+    formSchema = {emailFormSchema}
+    actionName="queryByEmail"
+    
+    onSuccess={() => {
+      querySuccess = true;
+    }}
+    >   
+      Search by Email
+        <ValidInput 
+        label=""
+        name="email"
+        type="text"
+        placeholder="Email"/>
+
+    </ValidForm>
+    <br>
+    <ValidForm
+    formSchema={accountFormSchema}
+    class="w-full max-w-md"
+    submitText="Query"
+    actionName="queryByAccount"
+    onSuccess={() => {
+      querySuccess = true;
+    }}
+    >
+        Search by Account #
+        <ValidInput 
+        label=""
+        name="accountNumber"
+        type="text"
+        placeholder="Account Number"/>
+        <!-- <input type="submit" class = "btn" value = "Query"> -->
+    </ValidForm>
   </div>
   <div class = "column h-full">Query Results
     <div class = "results">

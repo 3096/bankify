@@ -96,6 +96,7 @@ enum TransactionType {
   ATM
   CHARGE
   BILL_PAYMENT
+  CHEQUE
 }
 
 model Transaction {
@@ -107,7 +108,7 @@ model Transaction {
   recipientAccount       Account         @relation("RecipientAccount", references: [accountNumber], fields: [recipientAccountNumber])
   recipientAccountNumber Int
   timeStamp              DateTime        @default(now())
-  description            String
+  description            String       
 }
 
 // model Manager {

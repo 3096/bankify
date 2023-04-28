@@ -6,6 +6,7 @@
   import type { FormErrorData, NamedErrors } from './types';
   import { writable } from 'svelte/store';
 
+  export let actionName: string | null = null;
   export let submitText: string;
   type T = $$Generic<z.ZodRawShape>;
   export let formSchema: ReturnType<typeof z.object<T>> | null = null;
@@ -48,7 +49,7 @@
     }) satisfies SubmitFunction<FormResultType, FormErrorData>;
 </script>
 
-<form method="POST" use:enhance={enhanceForm}>
+<form method="POST" use:enhance={enhanceForm} action={actionName ? `?/${actionName}` : null}>
   <div {...$$restProps}>
     <slot />
     <button
@@ -56,6 +57,7 @@
       color="primary"
       type="submit"
       disabled={!!formErrorMessages.length || hasInvalidFields}
+      formaction={actionName ? `?/${actionName}` : null}
     >
       {submitText}
     </button>

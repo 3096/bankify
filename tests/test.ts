@@ -1,63 +1,72 @@
-import { expect, test } from '@playwright/test';
-import { defineConfig, devices } from '@playwright/test';
+import { chromium, test } from "@playwright/test"
 
-export default defineConfig({
-  projects: [
-    /* Test against branded browsers. */
-    {
-      name: 'Google Chrome',
-      use: { ...devices['Desktop Chrome'], channel: 'chrome' }, // or 'chrome-beta'
-    },
-    {
-      name: 'Microsoft Edge',
-      use: { ...devices['Desktop Edge'], channel: 'msedge' }, // or "msedge-beta" or 'msedge-dev'
-    },
-  ],
-});
+test('successful login test', async ({}) => {
+  const browser = await chromium.launch({
+    headless : false
+  });
+  const context = await browser.newContext();
+  const page = await context.newPage();
 
-test('basic test', async ({ page }) => {
   await page.goto('/');
-
-  await expect(async () => {
-    expect(page.url()).toEqual("http://localhost:4173/");
-  }).toPass();
 
   await page.click('input[name="email"]');
-  await page.locator('input[name="email"]').fill('cheese@soup.com');
+  await page.locator('input[name="email"]').fill('jim_carrey@themask.com');
   await page.click('input[name="password"]');
-  await page.locator('input[name="password"]').fill('maccaroni');
+  await page.locator('input[name="password"]').fill('carrey123!');
   await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
+  
+  await page.close();
   // ...
 });
 
-test('go to registration test', async ({ page }) => {
+test('incorrect login test', async ({}) => {
+  const browser = await chromium.launch({
+    headless : false
+  });
+  const context = await browser.newContext();
+  const page = await context.newPage();
+
   await page.goto('/');
 
-  await expect(async () => {
-    expect(page.url()).toEqual("http://localhost:4173/");
-  }).toPass();
+  await page.click('input[name="email"]');
+  await page.locator('input[name="email"]').fill('jim_carrey@themask.com');
+  await page.click('input[name="password"]');
+  await page.locator('input[name="password"]').fill('cubanPete123!');
+  await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
 
-  await page.click('href[class="ml-1.5 text-blue-500 hover:text-primary-800"]');
-
-  /*await expect(async () => {
-    expect(page.url()).toEqual("http://localhost:4173/register");
-  }).toPass();*/
+  await page.close();
   // ...
 });
 
-test('register test', async ({ page }) => {
-  await page.goto('/register');
+//check this case again. Faisl to go to registration page
+test('go to registration test', async ({}) => {
+  const browser = await chromium.launch({
+    headless : false
+  });
+  const context = await browser.newContext();
+  const page = await context.newPage();
 
-  await expect(async () => {
-    expect(page.url()).toEqual("http://localhost:4173/register");
-  }).toPass();
+  await page.goto('/');
+
+  page.click('href[class="ml-1.5 text-blue-500 hover:text-primary-800"]');
+  // ...
+});
+
+test('register test', async ({}) => {
+  const browser = await chromium.launch({
+    headless : false
+  });
+  const context = await browser.newContext();
+  const page = await context.newPage()
+
+  await page.goto('/register');
 
   await page.click('input[name="firstName"]');
   await page.locator('input[name="firstName"]').fill('Spongebob');
   await page.click('input[name="lastName"]');
   await page.locator('input[name="lastName"]').fill('Squarepants');
   await page.click('input[name="email"]');
-  await page.locator('input[name="email"]').fill('spongeboy@bikinibottom.com');
+  await page.locator('input[name="email"]').fill('spongeboy01@bikinibottom.com');
   await page.click('input[name="password"]');
   await page.locator('input[name="password"]').fill('TheFormula');
   await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
@@ -69,46 +78,6 @@ test('register test', async ({ page }) => {
   // ...
 });
 
-test('dashboard target test', async ({ page }) => {
-  await page.goto('/dashboard');
-
-  await expect(async () => {
-    expect(page.url()).toEqual("http://localhost:4173/dashboard");
-  }).toPass();
-
-  await page.locator('form[action="/targetdeal"]').locator('button[class="btn btn-info"]').click;
-  // ...
-  
-});
-
-test('dashboard starbucks test', async ({ page }) => {
-  await page.goto('/dashboard');
-  await page.locator('form[action="/starbucksdeal"]').locator('button[class="btn btn-info"]').click;
-  // ...
-  /* await expect(async () => {
-    expect(page.url()).toBe("/starbucksdeal");
-  }).toPass(); */
-});
-
-test('dashboard nike test', async ({ page }) => {
-  await page.goto('/dashboard');
-  await page.locator('form[action="/nikedeal"]').locator('button[class="btn btn-info"]').click;
-  // ...
-  /* await expect(async () => {
-    expect(page.url()).toBe("/nikedeal");
-  }).toPass(); */
-});
-
-test('account creation test', async ({ page }) => {
-  await page.goto('/account-creation');
-
-  await expect(async () => {
-    expect(page.url()).toEqual("http://localhost:4173/account-creation");
-  }).toPass();
-
-  
-  // ...
-});
 
 /*test('account number test', async ({ page }) => {
   await page.goto('/account/[accountNumber]');

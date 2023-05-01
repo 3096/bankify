@@ -19,31 +19,31 @@ export const load: PageServerLoad = async ({ locals }) => {
   return { user, trans };
 };
 
-
 export const actions = {
-  queryByEmail: async ({request, locals}) => {
+  queryByEmail: async ({ request, locals }) => {
     const userId = await validateSessionAndGetUserOrThrowRedirect(locals);
     //make sure that they are a manager?
-    console.log("email, yaya");
 
-    return null;
+    //Grab the email from the form
+    const formData = await request.formData();
+    const { email } = Object.fromEntries(formData.entries());
+
+    const res = await prisma.user.findUnique({
+      where: {
+        email: email.toString()
+      }
+    });
+
+    console.log(res);
+    return res;
   },
 
-
-  queryByAccount: async ({request, locals}) => {
-
-
-    console.log("account num, yayaya");
+  queryByAccount: async ({ request, locals }) => {
+    console.log('account num, yayaya');
 
     return null;
   }
-
-} satisfies Actions<EmailFormResult | AccountFormResult | ActionFailure<FormErrorData>>; 
-
-
-
-
-
+} satisfies Actions<EmailFormResult | AccountFormResult | ActionFailure<FormErrorData>>;
 
 // export const actions = {
 //   default: async ({ request, locals }) => {

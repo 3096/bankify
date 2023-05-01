@@ -1,3 +1,10 @@
+<script lang="ts">
+  import type { PageData } from './$types';
+
+  export let data: PageData;
+</script>
+
+
 <form action="/dashboard">
   <button class="btn btn-square btn-outline">
     <svg
@@ -23,8 +30,10 @@
     <div class="relative flex items-center mt-6">
       <select class="select select-bordered w-full max-w-xs">
         <option disabled selected>Select Account Type</option>
-        <option>Checkings</option>
-        <option>Savings</option>
+        {#each data.user.accounts as account}
+        <option>{account.accountNumber}---{account.accountName}</option>
+        {/each}
+ 
       </select>
     </div>
 

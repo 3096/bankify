@@ -1,5 +1,6 @@
 import type { TransactionType } from '@prisma/client';
 import prisma from './prisma';
+import { ACCOUNT_TYPES_BALANCE_CAN_BE_NEGATIVE } from './account';
 
 export class TransactionErrorInsufficientFunds extends Error {}
 
@@ -13,7 +14,10 @@ export const createTransaction = async (
   const senderAccount = await prisma.account.findUniqueOrThrow({
     where: { accountNumber: senderAccountNumber }
   });
-  if (senderAccount.currentBalance < amount) {
+  if (
+    senderAccount.currentBalance < amount &&
+    !ACCOUNT_TYPES_BALANCE_CAN_BE_NEGATIVE.includes(senderAccount.accountType)
+  ) {
     throw new TransactionErrorInsufficientFunds('Insufficient funds');
   }
 

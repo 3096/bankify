@@ -28,57 +28,49 @@ export const actions = {
     const formData = await request.formData();
     const { email } = Object.fromEntries(formData.entries());
 
-    const res = await prisma.user.findUnique({
+    //Retrieve User data 
+    const userRes = await prisma.user.findUnique({
       where: {
         email: email.toString()
       }
     });
 
-    console.log(res);
-    return res;
+    //Retrieve accounts owned by that user
+    const accountRes = await prisma.account.findMany({
+      where: {
+        userId: userRes?.id
+      }
+    });
+
+    return {userResult: userRes, accountResult: accountRes};
   },
 
-  queryByAccount: async ({ request, locals }) => {
-    console.log('account num, yayaya');
+  
 
-    return null;
+  queryByAccount: async ({ request, locals }) => {
+    // console.log('account num, yayaya');
+    const userID = await validateSessionAndGetUserOrThrowRedirect(locals);
+
+    const formData = await request.formData();
+    const {accountNumber} = Object.fromEntries(formData.entries());
+
+    console.log(typeof(parseInt(accountNumber.toString())));
+
+    // Find account with exact account number
+    const accountRes = await prisma.account.findUnique({
+      where: {
+        accountNumber: parseInt(accountNumber.toString())
+      }
+    });
+  
+    const userRes = await prisma.user.findUnique({
+      where: {
+        id: accountRes?.userId
+      }
+    });
+    console.log(accountRes);
+    console.log(userRes);
+    
+    return {userResult: userRes, accountResult: accountRes};
   }
 } satisfies Actions<EmailFormResult | AccountFormResult | ActionFailure<FormErrorData>>;
-
-// export const actions = {
-//   default: async ({ request, locals }) => {
-//     const userId = await validateSessionAndGetUserOrThrowRedirect(locals);
-
-//     const parseResult = formSchema.safeParse(
-//       Object.fromEntries((await request.formData()).entries())
-//     );
-//     if (!parseResult.success) {
-//       return fail<FormErrorData>(400, { errorMessages: ['Invalid form data'] });
-//     }
-
-//     const { senderAccountNumber, recipientAccountNumber, amount } = parseResult.data;
-
-//     const senderAccount = await prisma.account.findUniqueOrThrow({
-//       where: { accountNumber: senderAccountNumber }
-//     });
-//     if (senderAccount.userId !== userId) {
-//       return fail<FormErrorData>(403, { errorMessages: ['Forbidden'] });
-//     }
-
-//     try {
-//       await createTransaction(
-//         senderAccountNumber,
-//         recipientAccountNumber,
-//         amount,
-//         'TRANSFER',
-//         'Transfer'
-//       );
-//     } catch (e) {
-//       if (e instanceof TransactionErrorInsufficientFunds) {
-//         return fail<FormErrorData>(400, { errorMessages: ['Insufficient funds'] });
-//       }
-//       console.error(e);
-//       return fail<FormErrorData>(500, { errorMessages: ['Internal server error'] });
-//     }
-//   }
-// } satisfies Actions<void | ActionFailure<FormErrorData>>;

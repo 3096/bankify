@@ -6,11 +6,20 @@
   import ValidForm from '$lib/components/forms/ValidForm.svelte';
   import ValidInput from '$lib/components/forms/ValidInput.svelte';
   import { accountFormSchema, emailFormSchema } from './form';
+    import UserAccount from '$lib/components/UserAccount.svelte';
 
   export let data: PageData;
 
+  let dump = false;
   let querySuccess = 0;
   let queryResult: Record<string, unknown> | null = null;
+  let user: unknown;
+  let accounts;
+
+  function toggleDump(){
+    dump = !dump;
+  }
+
 </script>
 
 <div class="row">
@@ -34,9 +43,10 @@
       submitText="Query"
       formSchema={emailFormSchema}
       actionName="queryByEmail"
-      onSuccess={(res) => {
+      onSuccess={({userResult, accountResult}) => {
         querySuccess = 1;
-        queryResult = res;
+        user = userResult;
+        accounts = accountResult;
       }}
     >
       Search by Email
@@ -48,42 +58,67 @@
       class="w-full max-w-md"
       submitText="Query"
       actionName="queryByAccount"
-      onSuccess={(res) => {
+      onSuccess={({userResult, accountResult}) => {
         querySuccess = 2;
-        queryResult = res;
+        user = userResult;
+        accounts = accountResult;
       }}
     >
       Search by Account #
       <ValidInput label="" name="accountNumber" type="text" placeholder="Account Number" />
       <!-- <input type="submit" class = "btn" value = "Query"> -->
     </ValidForm>
+
+    <br>
+    <button on:click={toggleDump} class="btn">Dump DB</button>
   </div>
   <div class="column h-full">
     Query Results
     <div class="results">
-      <!-- Result of Account Query -->
+      
       {#if querySuccess == 1}
-        {queryResult.id} {queryResult.email}
+        {user.id} {user.firstName} {user.lastName}
+
+
+        {#each accounts as account}
+        <div>
+          {account.accountNumber} {account.currentBalance}
+        </div>
+        {/each}
+
       {:else if querySuccess == 2}
-        {queryResult.id} {queryResult.email}
+        {user.id} {user.firstName} {user.lastName}
+        <div>
+          {accounts.accountNumber} {accounts.currentBalance}
+        </div>
+
       {:else}
         Welcome to the Manager Dashboard! Search for a user by their email, or for an account by
         account number!
       {/if}
 
-      <!-- {#each data.user as userAccount}
-        <tr>
-          {userAccount.firstName}
-          {userAccount.id}
-        </tr>
-      {/each}
-      <br />
-      {#each data.trans as purchase}
-        <tr>
-          {purchase.id}
-          {purchase.description}
-        </tr>
-      {/each} -->
+      <!-- <UserAccount
+        querySuccess
+        queryResult
+        /> -->
+
+      
+      {#if dump}
+        {#each data.user as userAccount}
+          <tr>
+            {userAccount.firstName}
+            {userAccount.id}
+            {userAccount.email}
+          </tr>
+        {/each}
+        <br />
+        {#each data.trans as purchase}
+          <tr>
+            {purchase.id}
+            {purchase.description}
+          </tr>
+        {/each}
+      {/if}
     </div>
   </div>
 </div>

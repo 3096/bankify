@@ -227,6 +227,8 @@ test('logout test', async ({}) => {
   await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
 
   await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/li[3]/a');
+
+  await page.close();
   // ...
 });
 
@@ -246,14 +248,15 @@ test('uploadCheque test', async ({}) => {
   await page.locator('input[name="password"]').fill('carrey123!');
   await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
 
-  await page.click('/html/body/div/div[1]/div/div[1]/div[2]/ul/div[2]/ul/li/a');
+  await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/div[2]/ul/li/a');
   await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/div[2]/ul/li/ul/li[1]/a');
 
   
   // ...
 });
 
-test('opening account test', async ({}) => {
+//internal error occurs
+test('Open an Account test', async ({}) => {
   const browser = await chromium.launch({
     headless : false
   });
@@ -268,10 +271,51 @@ test('opening account test', async ({}) => {
   await page.locator('input[name="password"]').fill('carrey123!');
   await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
 
-  await page.click('/html/body/div/div[1]/div/div[1]/div[2]/ul/div[2]/ul/li/a');
+  await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/div[2]/ul/li/a');
   await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/div[2]/ul/li/ul/li[2]/a');
 
   
+  // ...
+});
+
+//internal error occurs
+test('Transfer test', async ({}) => {
+  const browser = await chromium.launch({
+    headless : false
+  });
+  const context = await browser.newContext();
+  const page = await context.newPage()
+
+  await page.goto('/');
+
+  await page.click('input[name="email"]');
+  await page.locator('input[name="email"]').fill('jim_carrey@themask.com');
+  await page.click('input[name="password"]');
+  await page.locator('input[name="password"]').fill('carrey123!');
+  await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
+
+  await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/div[1]/ul/li/a');
+  await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/div[1]/ul/li/ul/li[1]/a');
+  // ...
+});
+
+test('Bill Payment test', async ({}) => {
+  const browser = await chromium.launch({
+    headless : false
+  });
+  const context = await browser.newContext();
+  const page = await context.newPage()
+
+  await page.goto('/');
+
+  await page.click('input[name="email"]');
+  await page.locator('input[name="email"]').fill('jim_carrey@themask.com');
+  await page.click('input[name="password"]');
+  await page.locator('input[name="password"]').fill('carrey123!');
+  await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
+
+  await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/div[1]/ul/li/a');
+  await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/div[1]/ul/li/ul/li[2]/a');
   // ...
 });
 

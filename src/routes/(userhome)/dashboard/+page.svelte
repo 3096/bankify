@@ -6,9 +6,7 @@
   export let data: PageData;
 </script>
 
-<br>
-<br>
-<br>
+
 
 <div class="overflow-x-auto">
   <table class="table w-full">

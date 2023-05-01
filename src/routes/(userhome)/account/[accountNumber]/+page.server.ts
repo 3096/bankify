@@ -2,6 +2,7 @@ import type { PageServerLoad } from './$types';
 import { validateSessionAndGetUserOrThrowRedirect } from '$lib/server/auth';
 import prisma from '$lib/server/prisma';
 import { redirect } from '@sveltejs/kit';
+import { getAccountTransactions } from '$lib/server/transaction';
 
 export const load: PageServerLoad = async ({ locals, params }) => {
   const userId = await validateSessionAndGetUserOrThrowRedirect(locals);
@@ -27,8 +28,6 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 
   return {
     ...account,
-    transactions: [...account.sentTransactions, ...account.receivedTransactions].sort(
-      (a, b) => b.timeStamp.getTime() - a.timeStamp.getTime()
-    )
+    transactions: getAccountTransactions(account)
   };
 };

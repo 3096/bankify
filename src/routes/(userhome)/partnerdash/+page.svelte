@@ -35,7 +35,7 @@
           </p>
           <button class="btn btn-primary" on:click={copyApiKey}> Copy </button>
         {:else}
-          <p class="text-gray-800 font-bold">
+          <p class="text-gray-800 font-semibold ml-2">
             For security purposes, if you lost access to your API key, you must generate a new one.
           </p>
           <form method="POST" use:enhance={enhanceForm}>

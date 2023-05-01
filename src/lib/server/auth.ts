@@ -37,7 +37,7 @@ const APIKEY_PART_LEN = 16;
 export const createNewApiKeyAndInvalidateOldApiKeys = async (userId: string) => {
   const allUserKeys = await auth.getAllUserKeys(userId);
   const oldApiKeys = allUserKeys.filter((key) => key.providerId === 'apikey');
-  await Promise.all(oldApiKeys.map((key) => auth.deleteKey('apikey', key.providerId)));
+  await Promise.all(oldApiKeys.map((key) => auth.deleteKey('apikey', key.providerUserId)));
 
   const buffer = new Uint8Array(APIKEY_PART_LEN * 2);
   crypto.getRandomValues(buffer);

@@ -1,4 +1,4 @@
-import type { TransactionType } from '@prisma/client';
+import type { Transaction, TransactionType } from '@prisma/client';
 import prisma from './prisma';
 import { ACCOUNT_TYPES_BALANCE_CAN_BE_NEGATIVE } from './account';
 
@@ -53,3 +53,12 @@ export const createTransaction = async (
     })
   ]);
 };
+
+export const getAccountTransactions = (accountWithTransactions: {
+  sentTransactions: Transaction[];
+  receivedTransactions: Transaction[];
+}) =>
+  [
+    ...accountWithTransactions.sentTransactions,
+    ...accountWithTransactions.receivedTransactions
+  ].sort((a, b) => b.timeStamp.getTime() - a.timeStamp.getTime());

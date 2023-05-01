@@ -24,6 +24,17 @@ export const getPartnerAccount = async (userId: string) => {
   });
 };
 
+export const getPartnerAccountWithTransactions = async (userId: string) => {
+  const account = await getPartnerAccount(userId);
+  return await prisma.account.findUniqueOrThrow({
+    where: { accountNumber: account.accountNumber },
+    include: {
+      sentTransactions: true,
+      receivedTransactions: true
+    }
+  });
+};
+
 export const userIdIsPartner = async (userId: string) => {
   const user = await prisma.user.findUniqueOrThrow({
     where: { id: userId },

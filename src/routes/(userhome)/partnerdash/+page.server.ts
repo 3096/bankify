@@ -6,12 +6,17 @@ import {
 import type { FormResult } from './form';
 import type { ActionFailure } from '@sveltejs/kit';
 import type { FormErrorData } from '$lib/components/forms/types';
-import { getPartnerAccount, userIdIsPartnerOrThrowRedirect } from '$lib/server/partner';
+import {
+  getPartnerAccountWithTransactions,
+  userIdIsPartnerOrThrowRedirect
+} from '$lib/server/partner';
+import { getAccountTransactions } from '$lib/server/transaction';
 
 export const load: PageServerLoad = async ({ locals }) => {
   const userId = await validateSessionAndGetUserOrThrowRedirect(locals);
   await userIdIsPartnerOrThrowRedirect(userId);
-  return { partnerAccount: await getPartnerAccount(userId) };
+  const partnerAccount = await getPartnerAccountWithTransactions(userId);
+  return { ...partnerAccount, transactions: getAccountTransactions(partnerAccount) };
 };
 
 export const actions = {

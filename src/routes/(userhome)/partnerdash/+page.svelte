@@ -3,6 +3,7 @@
   import type { FormErrorData } from '$lib/components/forms/types';
   import type { FormResult } from './form';
   import type { PageData } from './$types';
+  import { commaSeparateNumber } from '$lib/utils';
 
   export let data: PageData;
 
@@ -60,19 +61,23 @@
         </tr>
       </thead>
       <tbody>
-        <!-- <tr>
-          <td class="border px-4 py-2">https://api.example.com/users</td>
-          <td class="border px-4 py-2">GET</td>
-          <td class="border px-4 py-2">200</td>
-          <td class="border px-4 py-2">2023-04-25 13:42:18</td>
-        </tr>
-        <tr>
-          <td class="border px-4 py-2">https://api.example.com/orders</td>
-          <td class="border px-4 py-2">POST</td>
-          <td class="border px-4 py-2">201</td>
-          <td class="border px-4 py-2">2023-04-25 15:21:10</td>
-        </tr> -->
-        <!-- More logs here -->
+        {#each data.transactions as transaction}
+          <tr>
+            <td class="border px-4 py-2"
+              >{transaction.senderAccountNumber === data.accountNumber
+                ? transaction.recipientAccountNumber
+                : transaction.senderAccountNumber}</td
+            >
+            <td class="border px-4 py-2"
+              >{transaction.senderAccountNumber === data.accountNumber
+                ? commaSeparateNumber(-transaction.amount)
+                : commaSeparateNumber(transaction.amount)}</td
+            >
+            <td class="border px-4 py-2">{transaction.transactionType}</td>
+            <td class="border px-4 py-2">{transaction.description}</td>
+            <td class="border px-4 py-2">{transaction.timeStamp}</td>
+          </tr>
+        {/each}
       </tbody>
     </table>
   </div>

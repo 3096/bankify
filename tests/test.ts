@@ -189,8 +189,7 @@ test('searchATM test', async ({}) => {
   // ...
 });
 
-//page does not exist at the moment
-/*test('manager test', async ({}) => {
+test('manager test', async ({}) => {
   const browser = await chromium.launch({
     headless : false
   });
@@ -207,9 +206,9 @@ test('searchATM test', async ({}) => {
 
   await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/li[2]/a');
 
-  await page.close();
+  //await page.close();
   // ...
-});*/
+});
 
 test('logout test', async ({}) => {
   const browser = await chromium.launch({

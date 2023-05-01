@@ -93,7 +93,11 @@ test('dashboard target test', async ({}) => {
   await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
 
   await page.click('//html/body/div/div[1]/div/div[2]/main/div[2]/div[1]/form/button');
-  //await page.locator("/html/body/div/div[1]/div/div[2]/main/div[2]/div[1]/form/button").click;
+
+  await page.click('button[class="btn btn-square btn-outline"]');
+  
+  await page.close();
+  // ...
 });
 
 test('dashboard starbucks test', async ({}) => {
@@ -112,6 +116,11 @@ test('dashboard starbucks test', async ({}) => {
   await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
 
   await page.click('//html/body/div/div[1]/div/div[2]/main/div[2]/div[3]/form/button');
+
+  await page.click('button[class="btn btn-square btn-outline"]');
+
+  await page.close();
+  // ...
 });
 
 test('dashboard nike test', async ({}) => {
@@ -130,6 +139,11 @@ test('dashboard nike test', async ({}) => {
   await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
 
   await page.click('//html/body/div/div[1]/div/div[2]/main/div[2]/div[5]/form/button');
+
+  await page.click('button[class="btn btn-square btn-outline"]');
+
+  await page.close();
+  // ...
 });
 
 test('customer help test', async ({}) => {
@@ -148,6 +162,114 @@ test('customer help test', async ({}) => {
   await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
 
   await page.click('//html/body/div/div[1]/div/div[2]/main/p[2]/a/button');
+
+  await page.click('//html/body/div[1]/div[1]/div/div[2]/main/center/button[1]');
+
+  
+  // ...
+});
+
+test('searchATM test', async ({}) => {
+  const browser = await chromium.launch({
+    headless : false
+  });
+  const context = await browser.newContext();
+  const page = await context.newPage()
+
+  await page.goto('/');
+
+  await page.click('input[name="email"]');
+  await page.locator('input[name="email"]').fill('jim_carrey@themask.com');
+  await page.click('input[name="password"]');
+  await page.locator('input[name="password"]').fill('carrey123!');
+  await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
+
+  await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/li[1]/a');
+  await page.locator('//*[@id="search"]').fill('San José State University, Washington Sq, San Jose, CA, USA\n');
+  // ...
+});
+
+//page does not exist at the moment
+/*test('manager test', async ({}) => {
+  const browser = await chromium.launch({
+    headless : false
+  });
+  const context = await browser.newContext();
+  const page = await context.newPage()
+
+  await page.goto('/');
+
+  await page.click('input[name="email"]');
+  await page.locator('input[name="email"]').fill('jim_carrey@themask.com');
+  await page.click('input[name="password"]');
+  await page.locator('input[name="password"]').fill('carrey123!');
+  await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
+
+  await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/li[2]/a');
+
+  await page.close();
+  // ...
+});*/
+
+test('logout test', async ({}) => {
+  const browser = await chromium.launch({
+    headless : false
+  });
+  const context = await browser.newContext();
+  const page = await context.newPage()
+
+  await page.goto('/');
+
+  await page.click('input[name="email"]');
+  await page.locator('input[name="email"]').fill('jim_carrey@themask.com');
+  await page.click('input[name="password"]');
+  await page.locator('input[name="password"]').fill('carrey123!');
+  await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
+
+  await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/li[3]/a');
+  // ...
+});
+
+
+test('uploadCheque test', async ({}) => {
+  const browser = await chromium.launch({
+    headless : false
+  });
+  const context = await browser.newContext();
+  const page = await context.newPage()
+
+  await page.goto('/');
+
+  await page.click('input[name="email"]');
+  await page.locator('input[name="email"]').fill('jim_carrey@themask.com');
+  await page.click('input[name="password"]');
+  await page.locator('input[name="password"]').fill('carrey123!');
+  await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
+
+  await page.click('/html/body/div/div[1]/div/div[1]/div[2]/ul/div[2]/ul/li/a');
+  await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/div[2]/ul/li/ul/li[1]/a');
+
+  
+  // ...
+});
+
+test('opening account test', async ({}) => {
+  const browser = await chromium.launch({
+    headless : false
+  });
+  const context = await browser.newContext();
+  const page = await context.newPage()
+
+  await page.goto('/');
+
+  await page.click('input[name="email"]');
+  await page.locator('input[name="email"]').fill('jim_carrey@themask.com');
+  await page.click('input[name="password"]');
+  await page.locator('input[name="password"]').fill('carrey123!');
+  await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
+
+  await page.click('/html/body/div/div[1]/div/div[1]/div[2]/ul/div[2]/ul/li/a');
+  await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/div[2]/ul/li/ul/li[2]/a');
 
   
   // ...
@@ -174,48 +296,8 @@ test('dashboard test', async ({ page }) => {
   // ...
 });
 
-test('nikedeal test', async ({ page }) => {
-  await page.goto('/nikedeal');
-  await page.getByLabel('First Name').fill('name');
-  await page.getByLabel('Last Name').fill('name');
-  await page.getByLabel('Email').fill('name');
-  await page.getByLabel('Password').fill('name');
-  await page.getByText('Sign in').click();
-  // ...
-});
-
 test('payment test', async ({ page }) => {
   await page.goto('/payment');
-  await page.getByLabel('First Name').fill('name');
-  await page.getByLabel('Last Name').fill('name');
-  await page.getByLabel('Email').fill('name');
-  await page.getByLabel('Password').fill('name');
-  await page.getByText('Sign in').click();
-  // ...
-});
-
-test('searchATM test', async ({ page }) => {
-  await page.goto('/searchATM');
-  await page.getByLabel('First Name').fill('name');
-  await page.getByLabel('Last Name').fill('name');
-  await page.getByLabel('Email').fill('name');
-  await page.getByLabel('Password').fill('name');
-  await page.getByText('Sign in').click();
-  // ...
-});
-
-test('starbucksdeal test', async ({ page }) => {
-  await page.goto('/starbucksdeal');
-  await page.getByLabel('First Name').fill('name');
-  await page.getByLabel('Last Name').fill('name');
-  await page.getByLabel('Email').fill('name');
-  await page.getByLabel('Password').fill('name');
-  await page.getByText('Sign in').click();
-  // ...
-});
-
-test('targetdeal test', async ({ page }) => {
-  await page.goto('/targetdeal');
   await page.getByLabel('First Name').fill('name');
   await page.getByLabel('Last Name').fill('name');
   await page.getByLabel('Email').fill('name');
@@ -232,14 +314,5 @@ test('transfer test', async ({ page }) => {
   await page.getByLabel('Password').fill('name');
   await page.getByText('Sign in').click();
   // ...
-});
-
-test('uploadCheque test', async ({ page }) => {
-  await page.goto('/uploadCheque');
-  await page.getByLabel('First Name').fill('name');
-  await page.getByLabel('Last Name').fill('name');
-  await page.getByLabel('Email').fill('name');
-  await page.getByLabel('Password').fill('name');
-  await page.getByText('Sign in').click();
-  // ...
 });*/
+

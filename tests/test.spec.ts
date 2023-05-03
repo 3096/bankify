@@ -1,8 +1,8 @@
-import { chromium, test } from "@playwright/test"
+import { chromium, test } from '@playwright/test';
 
-test('successful login test', async ({}) => {
+test('successful login test', async () => {
   const browser = await chromium.launch({
-    headless : false
+    headless: false
   });
   const context = await browser.newContext();
   const page = await context.newPage();
@@ -14,14 +14,14 @@ test('successful login test', async ({}) => {
   await page.click('input[name="password"]');
   await page.locator('input[name="password"]').fill('carrey123!');
   await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
-  
+
   await page.close();
   // ...
 });
 
-test('incorrect login test', async ({}) => {
+test('incorrect login test', async () => {
   const browser = await chromium.launch({
-    headless : false
+    headless: false
   });
   const context = await browser.newContext();
   const page = await context.newPage();
@@ -38,10 +38,9 @@ test('incorrect login test', async ({}) => {
   // ...
 });
 
-
-test('go to registration test', async ({}) => {
+test('go to registration test', async () => {
   const browser = await chromium.launch({
-    headless : false
+    headless: false
   });
   const context = await browser.newContext();
   const page = await context.newPage();
@@ -54,12 +53,12 @@ test('go to registration test', async ({}) => {
   // ...
 });
 
-test('register test', async ({}) => {
+test('register test', async () => {
   const browser = await chromium.launch({
-    headless : false
+    headless: false
   });
   const context = await browser.newContext();
-  const page = await context.newPage()
+  const page = await context.newPage();
 
   await page.goto('/register');
 
@@ -72,17 +71,17 @@ test('register test', async ({}) => {
   await page.click('input[name="password"]');
   await page.locator('input[name="password"]').fill('TheFormula');
   await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
-  
+
   //await page.close();
   // ...
 });
 
-test('dashboard target test', async ({}) => {
+test('dashboard target test', async () => {
   const browser = await chromium.launch({
-    headless : false
+    headless: false
   });
   const context = await browser.newContext();
-  const page = await context.newPage()
+  const page = await context.newPage();
 
   await page.goto('/');
 
@@ -95,17 +94,17 @@ test('dashboard target test', async ({}) => {
   await page.click('//html/body/div/div[1]/div/div[2]/main/div[2]/div[1]/form/button');
 
   await page.click('button[class="btn btn-square btn-outline"]');
-  
+
   await page.close();
   // ...
 });
 
-test('dashboard starbucks test', async ({}) => {
+test('dashboard starbucks test', async () => {
   const browser = await chromium.launch({
-    headless : false
+    headless: false
   });
   const context = await browser.newContext();
-  const page = await context.newPage()
+  const page = await context.newPage();
 
   await page.goto('/');
 
@@ -123,12 +122,12 @@ test('dashboard starbucks test', async ({}) => {
   // ...
 });
 
-test('dashboard nike test', async ({}) => {
+test('dashboard nike test', async () => {
   const browser = await chromium.launch({
-    headless : false
+    headless: false
   });
   const context = await browser.newContext();
-  const page = await context.newPage()
+  const page = await context.newPage();
 
   await page.goto('/');
 
@@ -146,12 +145,12 @@ test('dashboard nike test', async ({}) => {
   // ...
 });
 
-test('customer help test', async ({}) => {
+test('customer help test', async () => {
   const browser = await chromium.launch({
-    headless : false
+    headless: false
   });
   const context = await browser.newContext();
-  const page = await context.newPage()
+  const page = await context.newPage();
 
   await page.goto('/');
 
@@ -165,16 +164,15 @@ test('customer help test', async ({}) => {
 
   await page.click('//html/body/div[1]/div[1]/div/div[2]/main/center/button[1]');
 
-  
   // ...
 });
 
-test('searchATM test', async ({}) => {
+test('searchATM test', async () => {
   const browser = await chromium.launch({
-    headless : false
+    headless: false
   });
   const context = await browser.newContext();
-  const page = await context.newPage()
+  const page = await context.newPage();
 
   await page.goto('/');
 
@@ -185,16 +183,18 @@ test('searchATM test', async ({}) => {
   await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
 
   await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/li[1]/a');
-  await page.locator('//*[@id="search"]').fill('San José State University, Washington Sq, San Jose, CA, USA\n');
+  await page
+    .locator('//*[@id="search"]')
+    .fill('San José State University, Washington Sq, San Jose, CA, USA\n');
   // ...
 });
 
-test('manager test', async ({}) => {
+test('manager test', async () => {
   const browser = await chromium.launch({
-    headless : false
+    headless: false
   });
   const context = await browser.newContext();
-  const page = await context.newPage()
+  const page = await context.newPage();
 
   await page.goto('/');
 
@@ -210,12 +210,12 @@ test('manager test', async ({}) => {
   // ...
 });
 
-test('logout test', async ({}) => {
+test('logout test', async () => {
   const browser = await chromium.launch({
-    headless : false
+    headless: false
   });
   const context = await browser.newContext();
-  const page = await context.newPage()
+  const page = await context.newPage();
 
   await page.goto('/');
 
@@ -231,13 +231,12 @@ test('logout test', async ({}) => {
   // ...
 });
 
-
-test('uploadCheque test', async ({}) => {
+test('uploadCheque test', async () => {
   const browser = await chromium.launch({
-    headless : false
+    headless: false
   });
   const context = await browser.newContext();
-  const page = await context.newPage()
+  const page = await context.newPage();
 
   await page.goto('/');
 
@@ -250,17 +249,16 @@ test('uploadCheque test', async ({}) => {
   await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/div[2]/ul/li/a');
   await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/div[2]/ul/li/ul/li[1]/a');
 
-  
   // ...
 });
 
 //internal error occurs
-test('Open an Account test', async ({}) => {
+test('Open an Account test', async () => {
   const browser = await chromium.launch({
-    headless : false
+    headless: false
   });
   const context = await browser.newContext();
-  const page = await context.newPage()
+  const page = await context.newPage();
 
   await page.goto('/');
 
@@ -273,17 +271,16 @@ test('Open an Account test', async ({}) => {
   await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/div[2]/ul/li/a');
   await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/div[2]/ul/li/ul/li[2]/a');
 
-  
   // ...
 });
 
 //internal error occurs
-test('Transfer test', async ({}) => {
+test('Transfer test', async () => {
   const browser = await chromium.launch({
-    headless : false
+    headless: false
   });
   const context = await browser.newContext();
-  const page = await context.newPage()
+  const page = await context.newPage();
 
   await page.goto('/');
 
@@ -298,12 +295,12 @@ test('Transfer test', async ({}) => {
   // ...
 });
 
-test('Bill Payment test', async ({}) => {
+test('Bill Payment test', async () => {
   const browser = await chromium.launch({
-    headless : false
+    headless: false
   });
   const context = await browser.newContext();
-  const page = await context.newPage()
+  const page = await context.newPage();
 
   await page.goto('/');
 
@@ -317,7 +314,6 @@ test('Bill Payment test', async ({}) => {
   await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/div[1]/ul/li/ul/li[2]/a');
   // ...
 });
-
 
 /*test('account number test', async ({ page }) => {
   await page.goto('/account/[accountNumber]');
@@ -358,4 +354,3 @@ test('transfer test', async ({ page }) => {
   await page.getByText('Sign in').click();
   // ...
 });*/
-

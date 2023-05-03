@@ -11,7 +11,7 @@
   <div class="flex-none">
     <ul class="menu menu-horizontal px-1">
       <li><a href="/searchATM">Search ATM</a></li>
-      <li><a href="/create-account">Open an Account</a></li>
+      <li><a href="/account-creation">Open an Account</a></li>
 
       <div class="flex-none">
         <ul class="menu menu-horizontal px-1">

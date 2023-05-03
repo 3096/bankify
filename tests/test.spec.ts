@@ -189,27 +189,6 @@ test('searchATM test', async () => {
   // ...
 });
 
-test('manager test', async () => {
-  const browser = await chromium.launch({
-    headless: false
-  });
-  const context = await browser.newContext();
-  const page = await context.newPage();
-
-  await page.goto('/');
-
-  await page.click('input[name="email"]');
-  await page.locator('input[name="email"]').fill('jim_carrey@themask.com');
-  await page.click('input[name="password"]');
-  await page.locator('input[name="password"]').fill('carrey123!');
-  await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
-
-  await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/li[2]/a');
-
-  //await page.close();
-  // ...
-});
-
 test('logout test', async () => {
   const browser = await chromium.launch({
     headless: false
@@ -231,27 +210,6 @@ test('logout test', async () => {
   // ...
 });
 
-test('uploadCheque test', async () => {
-  const browser = await chromium.launch({
-    headless: false
-  });
-  const context = await browser.newContext();
-  const page = await context.newPage();
-
-  await page.goto('/');
-
-  await page.click('input[name="email"]');
-  await page.locator('input[name="email"]').fill('jim_carrey@themask.com');
-  await page.click('input[name="password"]');
-  await page.locator('input[name="password"]').fill('carrey123!');
-  await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
-
-  await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/div[2]/ul/li/a');
-  await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/div[2]/ul/li/ul/li[1]/a');
-
-  // ...
-});
-
 //internal error occurs
 test('Open an Account test', async () => {
   const browser = await chromium.launch({
@@ -268,8 +226,7 @@ test('Open an Account test', async () => {
   await page.locator('input[name="password"]').fill('carrey123!');
   await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
 
-  await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/div[2]/ul/li/a');
-  await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/div[2]/ul/li/ul/li[2]/a');
+  await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/li[2]/a');
 
   // ...
 });
@@ -290,8 +247,8 @@ test('Transfer test', async () => {
   await page.locator('input[name="password"]').fill('carrey123!');
   await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
 
-  await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/div[1]/ul/li/a');
-  await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/div[1]/ul/li/ul/li[1]/a');
+  await page.click('//html/body/div[1]/div[1]/div/div[1]/div[2]/ul/div/ul/li/div');
+  await page.click('//html/body/div[1]/div[1]/div/div[1]/div[2]/ul/div/ul/li/ul/li[1]/a');
   // ...
 });
 
@@ -310,47 +267,28 @@ test('Bill Payment test', async () => {
   await page.locator('input[name="password"]').fill('carrey123!');
   await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
 
-  await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/div[1]/ul/li/a');
-  await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/div[1]/ul/li/ul/li[2]/a');
+  await page.click('//html/body/div[1]/div[1]/div/div[1]/div[2]/ul/div/ul/li/div');
+  await page.click('//html/body/div[1]/div[1]/div/div[1]/div[2]/ul/div/ul/li/ul/li[2]/a');
   // ...
 });
 
-/*test('account number test', async ({ page }) => {
-  await page.goto('/account/[accountNumber]');
-  await page.getByLabel('First Name').fill('name');
-  await page.getByLabel('Last Name').fill('name');
-  await page.getByLabel('Email').fill('name');
-  await page.getByLabel('Password').fill('name');
-  await page.getByText('Sign in').click();
+test('uploadCheque test', async () => {
+  const browser = await chromium.launch({
+    headless: false
+  });
+  const context = await browser.newContext();
+  const page = await context.newPage();
+
+  await page.goto('/');
+
+  await page.click('input[name="email"]');
+  await page.locator('input[name="email"]').fill('jim_carrey@themask.com');
+  await page.click('input[name="password"]');
+  await page.locator('input[name="password"]').fill('carrey123!');
+  await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
+
+  await page.click('//html/body/div[1]/div[1]/div/div[1]/div[2]/ul/div/ul/li/div');
+  await page.click('//html/body/div[1]/div[1]/div/div[1]/div[2]/ul/div/ul/li/ul/li[3]/a');
+
   // ...
 });
-
-test('dashboard test', async ({ page }) => {
-  await page.goto('/dashboard');
-  await page.getByLabel('First Name').fill('name');
-  await page.getByLabel('Last Name').fill('name');
-  await page.getByLabel('Email').fill('name');
-  await page.getByLabel('Password').fill('name');
-  await page.getByText('Sign in').click();
-  // ...
-});
-
-test('payment test', async ({ page }) => {
-  await page.goto('/payment');
-  await page.getByLabel('First Name').fill('name');
-  await page.getByLabel('Last Name').fill('name');
-  await page.getByLabel('Email').fill('name');
-  await page.getByLabel('Password').fill('name');
-  await page.getByText('Sign in').click();
-  // ...
-});
-
-test('transfer test', async ({ page }) => {
-  await page.goto('/transfer');
-  await page.getByLabel('First Name').fill('name');
-  await page.getByLabel('Last Name').fill('name');
-  await page.getByLabel('Email').fill('name');
-  await page.getByLabel('Password').fill('name');
-  await page.getByText('Sign in').click();
-  // ...
-});*/

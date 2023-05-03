@@ -6,10 +6,6 @@
   export let data: PageData;
 </script>
 
-<br />
-<br />
-<br />
-
 <div class="overflow-x-auto">
   <table class="table w-full">
     <br />
@@ -22,7 +18,7 @@
         <tr>
           <th />
           <td>
-            <a href="/account/{account.accountNumber}" class="text-3xl">{account.accountName}</a>
+            <a href="/account/{account.accountNumber}" class="text-2xl">{account.accountName}</a>
           </td>
           <td><P size="xl" weight="medium">${commaSeparateNumber(account.currentBalance)}</P></td>
         </tr>

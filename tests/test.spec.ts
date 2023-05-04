@@ -91,9 +91,9 @@ test('dashboard target test', async () => {
   await page.locator('input[name="password"]').fill('carrey123!');
   await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
 
-  await page.click('//html/body/div/div[1]/div/div[2]/main/div[2]/div[1]/form/button');
+  await page.click('//html/body/div/div[1]/div/div[3]/main/div/div/div[3]/div/div[1]/button');
 
-  await page.click('button[class="btn btn-square btn-outline"]');
+  await page.click('//html/body/div/div[1]/div/div[3]/main/div/div/div[3]/div/div[2]/div/div[2]/label');
 
   await page.close();
   // ...
@@ -114,9 +114,9 @@ test('dashboard starbucks test', async () => {
   await page.locator('input[name="password"]').fill('carrey123!');
   await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
 
-  await page.click('//html/body/div/div[1]/div/div[2]/main/div[2]/div[3]/form/button');
+  await page.click('//html/body/div/div[1]/div/div[3]/main/div/div/div[3]/div/div[3]/button');
 
-  await page.click('button[class="btn btn-square btn-outline"]');
+  await page.click('//html/body/div/div[1]/div/div[3]/main/div/div/div[3]/div/div[4]/div/div[2]/label');
 
   await page.close();
   // ...
@@ -137,9 +137,9 @@ test('dashboard nike test', async () => {
   await page.locator('input[name="password"]').fill('carrey123!');
   await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
 
-  await page.click('//html/body/div/div[1]/div/div[2]/main/div[2]/div[5]/form/button');
+  await page.click('//html/body/div/div[1]/div/div[3]/main/div/div/div[3]/div/div[5]/button');
 
-  await page.click('button[class="btn btn-square btn-outline"]');
+  await page.click('//html/body/div/div[1]/div/div[3]/main/div/div/div[3]/div/div[6]/div/div[2]/label');
 
   await page.close();
   // ...
@@ -160,9 +160,9 @@ test('customer help test', async () => {
   await page.locator('input[name="password"]').fill('carrey123!');
   await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
 
-  await page.click('//html/body/div/div[1]/div/div[2]/main/p[2]/a/button');
+  await page.click('//html/body/div/div[1]/div/div[3]/main/div/div/div[1]/div[2]/div[2]/p/a/button');
 
-  await page.click('//html/body/div[1]/div[1]/div/div[2]/main/center/button[1]');
+  await page.click('//html/body/div/div[1]/div/div[3]/main/center/button[1]');
 
   // ...
 });
@@ -250,13 +250,22 @@ test('Transfer test', async () => {
   await page.click('//html/body/div[1]/div[1]/div/div[1]/div[2]/ul/div/ul/li/div');
   await page.click('//html/body/div[1]/div[1]/div/div[1]/div[2]/ul/div/ul/li/ul/li[1]/a');
 
-  await page.click('/html/body/div/div[1]/div/div[3]/main/div/form/div/div[1]/div/div/input');
-  await page.locator('/html/body/div/div[1]/div/div[3]/main/div/form/div/div[1]/div/div/input').fill('24');
-  await page.click('/html/body/div/div[1]/div/div[3]/main/div/form/div/div[2]/div/div/select');
-  
+  await page.click('//html/body/div/div[1]/div/div[3]/main/div/form/div/div[1]/div/div/input');
+  await page.locator('//html/body/div/div[1]/div/div[3]/main/div/form/div/div[1]/div/div/input').fill('24');
+  await page.click('//html/body/div/div[1]/div/div[3]/main/div/form/div/div[2]/div/div/select');
 
+  await page.selectOption("//html/body/div/div[1]/div/div[3]/main/div/form/div/div[2]/div/div/select", {
+    value: "23"
+  })
 
+  await page.click('//html/body/div/div[1]/div/div[3]/main/div/form/div/div[3]/div/div/input');
+  await page.locator('//html/body/div/div[1]/div/div[3]/main/div/form/div/div[3]/div/div/input').fill('100');
   // ...
+
+  await page.click('//html/body/div/div[1]/div/div[3]/main/div/form/div/button');
+
+  await page.click('//html/body/div/div[1]/div/div[3]/main/div/form/div/div[4]/div/div/div/a');
+
 });
 
 test('Bill Payment test', async () => {

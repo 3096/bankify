@@ -249,6 +249,13 @@ test('Transfer test', async () => {
 
   await page.click('//html/body/div[1]/div[1]/div/div[1]/div[2]/ul/div/ul/li/div');
   await page.click('//html/body/div[1]/div[1]/div/div[1]/div[2]/ul/div/ul/li/ul/li[1]/a');
+
+  await page.click('/html/body/div/div[1]/div/div[3]/main/div/form/div/div[1]/div/div/input');
+  await page.locator('/html/body/div/div[1]/div/div[3]/main/div/form/div/div[1]/div/div/input').fill('24');
+  await page.click('/html/body/div/div[1]/div/div[3]/main/div/form/div/div[2]/div/div/select');
+  
+
+
   // ...
 });
 

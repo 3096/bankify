@@ -20,7 +20,20 @@
       <div class="card-actions justify-end">
         <a class="btn btn-primary" href="/transfer">Transfer</a>
         <!-- <button class="btn btn-primary">Transfer</button> -->
-        <button class="btn btn-primary">Info</button>
+        <!-- The button to open modal -->
+<label for="my-modal" class="btn">Info</label>
+
+<!-- Put this part before </body> tag -->
+<input type="checkbox" id="my-modal" class="modal-toggle" />
+<div class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">Account Information</h3>
+    <p class="py-4">Account Number: </p>
+    <div class="modal-action">
+      <label for="my-modal" class="btn">Return</label>
+    </div>
+  </div>
+</div>
       </div>
     </div>
   </div>

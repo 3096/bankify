@@ -54,19 +54,19 @@
 
 <script>
   function a() {
-    document.getElementById("a").innerHTML = "andrew@sjsu.edu";
+    document.getElementById("a").innerHTML = "andrew.lu01@sjsu.edu";
   }
   function v() {
-    document.getElementById("v").innerHTML = "victoria@sjsu.edu ";
+    document.getElementById("v").innerHTML = "victoria.nguyen01@sjsu.edu ";
   }
   function aj() {
-    document.getElementById("aj").innerHTML = "ajeet@sjsu.edu ";
+    document.getElementById("aj").innerHTML = "ajeet.kotturu@sjsu.edu ";
   }
   function f() {
-    document.getElementById("f").innerHTML = "frank@sjsu.edu ";
+    document.getElementById("f").innerHTML = "yao.dai@sjsu.edu ";
   }
   function m() {
-    document.getElementById("m").innerHTML = "mayukh@sjsu.edu ";
+    document.getElementById("m").innerHTML = "mayukh.das@sjsu.edu ";
   }
   </script>
 

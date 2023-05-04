@@ -1,0 +1,25 @@
+version: '3.9'
+services:
+  sveltekit:
+    image: node:18-alpine
+    depends_on:
+      - postgres
+    restart: always
+    volumes:
+      - ./app:/app
+    working_dir: /app
+    ports:
+      - 3000:3000
+    environment:
+      DATABASE_URL: "postgresql://postgres:example_password@postgres:5432/bankify_prod?schema=public"
+      ORIGIN: "http://localhost:3000"
+    command: npm run dist:start
+  postgres:
+    image: postgres
+    restart: always
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: example_password

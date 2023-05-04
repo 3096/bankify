@@ -17,24 +17,25 @@
       <h2 class="card-title">{data.accountName}</h2>
       <h2 class="card-title mx-auto">${commaSeparateNumber(data.currentBalance)}</h2>
       <br />
-      <div class="card-actions justify-end">
-        <a class="btn btn-primary" href="/transfer">Transfer</a>
+       
         <!-- <button class="btn btn-primary">Transfer</button> -->
-        <!-- The button to open modal -->
-<label for="my-modal" class="btn">Info</label>
+        
 
-<!-- Put this part before </body> tag -->
-<input type="checkbox" id="my-modal" class="modal-toggle" />
-<div class="modal">
-  <div class="modal-box">
-    <h3 class="font-bold text-lg">Account Information</h3>
-    <p class="py-4">Account Number: </p>
-    <div class="modal-action">
-      <label for="my-modal" class="btn">Return</label>
-    </div>
+
+<div tabindex="0" class="collapse collapse-plus border border-base-50 bg-base-50 rounded-box">
+  <div class="collapse-title text-s font-medium">
+    Show Account #
   </div>
-</div>
+  <div class="collapse-content">
+    <td
+      >{
+        data.accountNumber
+         
+      }</td
+      >
+  </div>
       </div>
+      <center><a class="btn btn-primary" href="/transfer">Transfer</a></center>
     </div>
   </div>
   <div class=" my-3 bg-indigo-400 mx-auto card w-80 glass">

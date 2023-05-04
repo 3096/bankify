@@ -62,6 +62,7 @@
       </div>
     </div>
 
+    
     <div class="relative flex items-center mt-6">
       <!-- The button to open modal -->
       <a href="#my-modal-2" class="btn">Pay</a>

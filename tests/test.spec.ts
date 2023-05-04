@@ -285,6 +285,17 @@ test('Bill Payment test', async () => {
 
   await page.click('//html/body/div[1]/div[1]/div/div[1]/div[2]/ul/div/ul/li/div');
   await page.click('//html/body/div[1]/div[1]/div/div[1]/div[2]/ul/div/ul/li/ul/li[2]/a');
+
+  await page.selectOption("//html/body/div/div[1]/div/div[3]/main/div/form/div[1]/select", {
+    value: "24---The Dough"
+  })
+
+  await page.click('//html/body/div/div[1]/div/div[3]/main/div/form/div[2]/div/input');
+  await page.locator('//html/body/div/div[1]/div/div[3]/main/div/form/div[2]/div/input').fill('500');
+
+  await page.click('//html/body/div/div[1]/div/div[3]/main/div/form/div[3]/a');
+
+  await page.click('//*[@id="my-modal-2"]/div/div/a');
   // ...
 });
 

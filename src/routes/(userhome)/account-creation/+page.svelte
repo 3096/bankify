@@ -3,16 +3,12 @@
   import ValidForm from '$lib/components/forms/ValidForm.svelte';
   import ValidInput from '$lib/components/forms/ValidInput.svelte';
   import { ACCOUNT_TYPE_NAMES, ACCOUNT_DEFAULT_NAMES } from '$lib/account';
-  import { AccountType as AccountTypes } from '@prisma/client';
   import type { AccountType } from '@prisma/client';
 
   let accountTypeSeletion = '';
-  $: accountDefaultName =
-    accountTypeSeletion in AccountTypes
-      ? ACCOUNT_DEFAULT_NAMES[accountTypeSeletion as AccountType]
-      : '';
+  $: accountDefaultName = ACCOUNT_DEFAULT_NAMES[accountTypeSeletion as AccountType];
 
-  const ALLOWED_TO_CREATE = [AccountTypes.CHECKING, AccountTypes.SAVINGS, AccountTypes.CREDIT];
+  const ALLOWED_TO_CREATE: AccountType[] = ['SAVINGS', 'CHECKING', 'CREDIT'];
 </script>
 
 <div class="max-w-md mx-auto my-10 bg-white p-8 rounded shadow-md">

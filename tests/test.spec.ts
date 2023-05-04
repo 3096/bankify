@@ -1,8 +1,8 @@
-import { chromium, test } from "@playwright/test"
+import { chromium, test } from '@playwright/test';
 
-test('successful login test', async ({}) => {
+test('successful login test', async () => {
   const browser = await chromium.launch({
-    headless : false
+    headless: false
   });
   const context = await browser.newContext();
   const page = await context.newPage();
@@ -14,14 +14,14 @@ test('successful login test', async ({}) => {
   await page.click('input[name="password"]');
   await page.locator('input[name="password"]').fill('carrey123!');
   await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
-  
+
   await page.close();
   // ...
 });
 
-test('incorrect login test', async ({}) => {
+test('incorrect login test', async () => {
   const browser = await chromium.launch({
-    headless : false
+    headless: false
   });
   const context = await browser.newContext();
   const page = await context.newPage();
@@ -38,10 +38,9 @@ test('incorrect login test', async ({}) => {
   // ...
 });
 
-
-test('go to registration test', async ({}) => {
+test('go to registration test', async () => {
   const browser = await chromium.launch({
-    headless : false
+    headless: false
   });
   const context = await browser.newContext();
   const page = await context.newPage();
@@ -54,12 +53,12 @@ test('go to registration test', async ({}) => {
   // ...
 });
 
-test('register test', async ({}) => {
+test('register test', async () => {
   const browser = await chromium.launch({
-    headless : false
+    headless: false
   });
   const context = await browser.newContext();
-  const page = await context.newPage()
+  const page = await context.newPage();
 
   await page.goto('/register');
 
@@ -72,17 +71,17 @@ test('register test', async ({}) => {
   await page.click('input[name="password"]');
   await page.locator('input[name="password"]').fill('TheFormula');
   await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
-  
+
   //await page.close();
   // ...
 });
 
-test('dashboard target test', async ({}) => {
+test('dashboard target test', async () => {
   const browser = await chromium.launch({
-    headless : false
+    headless: false
   });
   const context = await browser.newContext();
-  const page = await context.newPage()
+  const page = await context.newPage();
 
   await page.goto('/');
 
@@ -92,43 +91,20 @@ test('dashboard target test', async ({}) => {
   await page.locator('input[name="password"]').fill('carrey123!');
   await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
 
-  await page.click('//html/body/div/div[1]/div/div[2]/main/div[2]/div[1]/form/button');
+  await page.click('//html/body/div/div[1]/div/div[3]/main/div/div/div[3]/div/div[1]/button');
 
-  await page.click('button[class="btn btn-square btn-outline"]');
-  
-  await page.close();
-  // ...
-});
-
-test('dashboard starbucks test', async ({}) => {
-  const browser = await chromium.launch({
-    headless : false
-  });
-  const context = await browser.newContext();
-  const page = await context.newPage()
-
-  await page.goto('/');
-
-  await page.click('input[name="email"]');
-  await page.locator('input[name="email"]').fill('jim_carrey@themask.com');
-  await page.click('input[name="password"]');
-  await page.locator('input[name="password"]').fill('carrey123!');
-  await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
-
-  await page.click('//html/body/div/div[1]/div/div[2]/main/div[2]/div[3]/form/button');
-
-  await page.click('button[class="btn btn-square btn-outline"]');
+  await page.click('//html/body/div/div[1]/div/div[3]/main/div/div/div[3]/div/div[2]/div/div[2]/label');
 
   await page.close();
   // ...
 });
 
-test('dashboard nike test', async ({}) => {
+test('dashboard starbucks test', async () => {
   const browser = await chromium.launch({
-    headless : false
+    headless: false
   });
   const context = await browser.newContext();
-  const page = await context.newPage()
+  const page = await context.newPage();
 
   await page.goto('/');
 
@@ -138,20 +114,20 @@ test('dashboard nike test', async ({}) => {
   await page.locator('input[name="password"]').fill('carrey123!');
   await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
 
-  await page.click('//html/body/div/div[1]/div/div[2]/main/div[2]/div[5]/form/button');
+  await page.click('//html/body/div/div[1]/div/div[3]/main/div/div/div[3]/div/div[3]/button');
 
-  await page.click('button[class="btn btn-square btn-outline"]');
+  await page.click('//html/body/div/div[1]/div/div[3]/main/div/div/div[3]/div/div[4]/div/div[2]/label');
 
   await page.close();
   // ...
 });
 
-test('customer help test', async ({}) => {
+test('dashboard nike test', async () => {
   const browser = await chromium.launch({
-    headless : false
+    headless: false
   });
   const context = await browser.newContext();
-  const page = await context.newPage()
+  const page = await context.newPage();
 
   await page.goto('/');
 
@@ -161,20 +137,42 @@ test('customer help test', async ({}) => {
   await page.locator('input[name="password"]').fill('carrey123!');
   await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
 
-  await page.click('//html/body/div/div[1]/div/div[2]/main/p[2]/a/button');
+  await page.click('//html/body/div/div[1]/div/div[3]/main/div/div/div[3]/div/div[5]/button');
 
-  await page.click('//html/body/div[1]/div[1]/div/div[2]/main/center/button[1]');
+  await page.click('//html/body/div/div[1]/div/div[3]/main/div/div/div[3]/div/div[6]/div/div[2]/label');
 
-  
+  await page.close();
   // ...
 });
 
-test('searchATM test', async ({}) => {
+test('customer help test', async () => {
   const browser = await chromium.launch({
-    headless : false
+    headless: false
   });
   const context = await browser.newContext();
-  const page = await context.newPage()
+  const page = await context.newPage();
+
+  await page.goto('/');
+
+  await page.click('input[name="email"]');
+  await page.locator('input[name="email"]').fill('jim_carrey@themask.com');
+  await page.click('input[name="password"]');
+  await page.locator('input[name="password"]').fill('carrey123!');
+  await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
+
+  await page.click('//html/body/div/div[1]/div/div[3]/main/div/div/div[1]/div[2]/div[2]/p/a/button');
+
+  await page.click('//html/body/div/div[1]/div/div[3]/main/center/button[1]');
+
+  // ...
+});
+
+test('searchATM test', async () => {
+  const browser = await chromium.launch({
+    headless: false
+  });
+  const context = await browser.newContext();
+  const page = await context.newPage();
 
   await page.goto('/');
 
@@ -185,37 +183,18 @@ test('searchATM test', async ({}) => {
   await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
 
   await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/li[1]/a');
-  await page.locator('//*[@id="search"]').fill('San José State University, Washington Sq, San Jose, CA, USA\n');
+  await page
+    .locator('//*[@id="search"]')
+    .fill('San José State University, Washington Sq, San Jose, CA, USA\n');
   // ...
 });
 
-test('manager test', async ({}) => {
+test('logout test', async () => {
   const browser = await chromium.launch({
-    headless : false
+    headless: false
   });
   const context = await browser.newContext();
-  const page = await context.newPage()
-
-  await page.goto('/');
-
-  await page.click('input[name="email"]');
-  await page.locator('input[name="email"]').fill('jim_carrey@themask.com');
-  await page.click('input[name="password"]');
-  await page.locator('input[name="password"]').fill('carrey123!');
-  await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
-
-  await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/li[2]/a');
-
-  //await page.close();
-  // ...
-});
-
-test('logout test', async ({}) => {
-  const browser = await chromium.launch({
-    headless : false
-  });
-  const context = await browser.newContext();
-  const page = await context.newPage()
+  const page = await context.newPage();
 
   await page.goto('/');
 
@@ -231,13 +210,13 @@ test('logout test', async ({}) => {
   // ...
 });
 
-
-test('uploadCheque test', async ({}) => {
+//internal error occurs
+test('Open an Account test', async () => {
   const browser = await chromium.launch({
-    headless : false
+    headless: false
   });
   const context = await browser.newContext();
-  const page = await context.newPage()
+  const page = await context.newPage();
 
   await page.goto('/');
 
@@ -247,20 +226,18 @@ test('uploadCheque test', async ({}) => {
   await page.locator('input[name="password"]').fill('carrey123!');
   await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
 
-  await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/div[2]/ul/li/a');
-  await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/div[2]/ul/li/ul/li[1]/a');
+  await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/li[2]/a');
 
-  
   // ...
 });
 
 //internal error occurs
-test('Open an Account test', async ({}) => {
+test('Transfer test', async () => {
   const browser = await chromium.launch({
-    headless : false
+    headless: false
   });
   const context = await browser.newContext();
-  const page = await context.newPage()
+  const page = await context.newPage();
 
   await page.goto('/');
 
@@ -270,20 +247,33 @@ test('Open an Account test', async ({}) => {
   await page.locator('input[name="password"]').fill('carrey123!');
   await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
 
-  await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/div[2]/ul/li/a');
-  await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/div[2]/ul/li/ul/li[2]/a');
+  await page.click('//html/body/div[1]/div[1]/div/div[1]/div[2]/ul/div/ul/li/div');
+  await page.click('//html/body/div[1]/div[1]/div/div[1]/div[2]/ul/div/ul/li/ul/li[1]/a');
 
-  
+  await page.click('//html/body/div/div[1]/div/div[3]/main/div/form/div/div[1]/div/div/input');
+  await page.locator('//html/body/div/div[1]/div/div[3]/main/div/form/div/div[1]/div/div/input').fill('24');
+  await page.click('//html/body/div/div[1]/div/div[3]/main/div/form/div/div[2]/div/div/select');
+
+  await page.selectOption("//html/body/div/div[1]/div/div[3]/main/div/form/div/div[2]/div/div/select", {
+    value: "23"
+  })
+
+  await page.click('//html/body/div/div[1]/div/div[3]/main/div/form/div/div[3]/div/div/input');
+  await page.locator('//html/body/div/div[1]/div/div[3]/main/div/form/div/div[3]/div/div/input').fill('100');
   // ...
+
+  await page.click('//html/body/div/div[1]/div/div[3]/main/div/form/div/button');
+
+  await page.click('//html/body/div/div[1]/div/div[3]/main/div/form/div/div[4]/div/div/div/a');
+
 });
 
-//internal error occurs
-test('Transfer test', async ({}) => {
+test('Bill Payment test', async () => {
   const browser = await chromium.launch({
-    headless : false
+    headless: false
   });
   const context = await browser.newContext();
-  const page = await context.newPage()
+  const page = await context.newPage();
 
   await page.goto('/');
 
@@ -293,17 +283,28 @@ test('Transfer test', async ({}) => {
   await page.locator('input[name="password"]').fill('carrey123!');
   await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
 
-  await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/div[1]/ul/li/a');
-  await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/div[1]/ul/li/ul/li[1]/a');
+  await page.click('//html/body/div[1]/div[1]/div/div[1]/div[2]/ul/div/ul/li/div');
+  await page.click('//html/body/div[1]/div[1]/div/div[1]/div[2]/ul/div/ul/li/ul/li[2]/a');
+
+  await page.selectOption("//html/body/div/div[1]/div/div[3]/main/div/form/div[1]/select", {
+    value: "24---The Dough"
+  })
+
+  await page.click('//html/body/div/div[1]/div/div[3]/main/div/form/div[2]/div/input');
+  await page.locator('//html/body/div/div[1]/div/div[3]/main/div/form/div[2]/div/input').fill('500');
+
+  await page.click('//html/body/div/div[1]/div/div[3]/main/div/form/div[3]/a');
+
+  await page.click('//*[@id="my-modal-2"]/div/div/a');
   // ...
 });
 
-test('Bill Payment test', async ({}) => {
+test('uploadCheque test', async () => {
   const browser = await chromium.launch({
-    headless : false
+    headless: false
   });
   const context = await browser.newContext();
-  const page = await context.newPage()
+  const page = await context.newPage();
 
   await page.goto('/');
 
@@ -313,49 +314,8 @@ test('Bill Payment test', async ({}) => {
   await page.locator('input[name="password"]').fill('carrey123!');
   await page.click('button[class="btn btn-primary mt-6 transition duration-200 ease-in-out"]');
 
-  await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/div[1]/ul/li/a');
-  await page.click('//html/body/div/div[1]/div/div[1]/div[2]/ul/div[1]/ul/li/ul/li[2]/a');
+  await page.click('//html/body/div[1]/div[1]/div/div[1]/div[2]/ul/div/ul/li/div');
+  await page.click('//html/body/div[1]/div[1]/div/div[1]/div[2]/ul/div/ul/li/ul/li[3]/a');
+
   // ...
 });
-
-
-/*test('account number test', async ({ page }) => {
-  await page.goto('/account/[accountNumber]');
-  await page.getByLabel('First Name').fill('name');
-  await page.getByLabel('Last Name').fill('name');
-  await page.getByLabel('Email').fill('name');
-  await page.getByLabel('Password').fill('name');
-  await page.getByText('Sign in').click();
-  // ...
-});
-
-test('dashboard test', async ({ page }) => {
-  await page.goto('/dashboard');
-  await page.getByLabel('First Name').fill('name');
-  await page.getByLabel('Last Name').fill('name');
-  await page.getByLabel('Email').fill('name');
-  await page.getByLabel('Password').fill('name');
-  await page.getByText('Sign in').click();
-  // ...
-});
-
-test('payment test', async ({ page }) => {
-  await page.goto('/payment');
-  await page.getByLabel('First Name').fill('name');
-  await page.getByLabel('Last Name').fill('name');
-  await page.getByLabel('Email').fill('name');
-  await page.getByLabel('Password').fill('name');
-  await page.getByText('Sign in').click();
-  // ...
-});
-
-test('transfer test', async ({ page }) => {
-  await page.goto('/transfer');
-  await page.getByLabel('First Name').fill('name');
-  await page.getByLabel('Last Name').fill('name');
-  await page.getByLabel('Email').fill('name');
-  await page.getByLabel('Password').fill('name');
-  await page.getByText('Sign in').click();
-  // ...
-});*/
-

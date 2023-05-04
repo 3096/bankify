@@ -1,10 +1,10 @@
-<script lang="ts">
+<!-- <script lang="ts">
   let imageSrc;
-  let showImage = false;
+  let showImage2 = false;
   function retrieveImage() {
     const base64Image = sessionStorage.getItem("uploadedCheck");
     imageSrc = `data:image/png;base64,${base64Image}`;
-    showImage = true;
+    showImage2 = true;
     //console.log(base64Image);
   }
 
@@ -35,7 +35,7 @@
   <button class="btn" on:click = {retrieveImage}>Show uploaded image test</button>
 </form>
 <div>
-	{#if showImage}
+	{#if showImage2}
 		<img  src={imageSrc} alt="Preview" />
 	{/if}
-</div>
+</div> -->

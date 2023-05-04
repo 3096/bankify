@@ -8,6 +8,7 @@
   export let data: PageData;
 
   let apiKey: string | null = null;
+  let copied = false;
 
   const enhanceForm = (() =>
     ({ result }) => {
@@ -20,6 +21,7 @@
 
   const copyApiKey = () => {
     navigator.clipboard.writeText(apiKey!);
+    copied = true;
   };
 </script>
 
@@ -34,7 +36,9 @@
           <p class="text-green-600 font-bold">
             Your API key is: <span class="text-gray-600">{apiKey}</span>
           </p>
-          <button class="btn btn-primary" on:click={copyApiKey}> Copy </button>
+          <button class="btn btn-primary" on:click={copyApiKey}>
+            {copied ? 'Copied!' : 'Copy'}
+          </button>
         {:else}
           <p class="text-gray-800 font-semibold ml-2">
             For security purposes, if you lost access to your API key, you must generate a new one.
@@ -50,7 +54,7 @@
   <!-- API Logs Section -->
   <div>
     <h2 class="text-lg font-bold mb-3">API Transaction Logs</h2>
-    <table class="table-auto w-full">
+    <table class="table-auto w-full bg-white shadow border-2">
       <thead>
         <tr>
           <th class="px-4 py-2">Customer</th>

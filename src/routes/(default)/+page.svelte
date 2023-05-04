@@ -4,7 +4,11 @@
   import ValidInput from '$lib/components/forms/ValidInput.svelte';
 </script>
 
-<img class="mx-auto h-12 w-auto px-4 object-contain mt-12 mb-14" src="icon.png" alt="Bankify" />
+<img
+  class="mx-auto h-12 w-auto p-0.5 lg:p-0 object-contain mt-12 mb-14"
+  src="icon.png"
+  alt="Bankify"
+/>
 
 <div class="sm:flex sm:justify-center">
   <div

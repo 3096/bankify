@@ -6,5 +6,6 @@ export const ACCOUNT_TYPE_ALLOWED_TO_SEND: {
   CHECKING: true,
   SAVINGS: true,
   CREDIT: false,
-  LOAN: false
+  LOAN: false,
+  INTERNAL: false
 };

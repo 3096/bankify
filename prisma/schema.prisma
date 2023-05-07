@@ -111,29 +111,9 @@ model Transaction {
   description            String
 }
 
-// model Manager {
-//   manager_id              String @id @unique
-//   relational_manager_name String
-//   branch_bank             String
-//   pin_code                Int
-//   email_id                String
-//   phone_number            Int
-// }
-
-// model Card {
-//   card_id     String @id @unique
-//   card_type   String
-//   user_id     String
-//   account_num String
-// }
-
-// model Notification {
-//   message_id              String   @id @unique
-//   recipient_account_id    String
-//   message_body            String
-//   account_status          String
-//   account_activation_date DateTime
-//   total_balance           Int
-// }
+model RuntimeMeta {
+  key   String @id
+  value String
+}
 
 //Added on 04-05-2023

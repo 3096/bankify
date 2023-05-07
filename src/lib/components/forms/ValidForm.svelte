@@ -11,14 +11,15 @@
   type T = $$Generic<z.ZodRawShape>;
   export let formSchema: ReturnType<typeof z.object<T>> | null = null;
   type FormResultType = $$Generic<Record<string, unknown>>;
-  export let onSuccess: (data: FormResultType) => void = () => {};
+  export let onSuccess: (data: FormResultType) => Promise<void> | void = () => {};
+  export let broadcastError = writable({} as NamedErrors);
 
   let validMap = formSchema
     ? new Map(Object.entries(formSchema.shape).map(([key, value]) => [key, value.isOptional()]))
     : new Map<string, boolean>();
   $: hasInvalidFields = Array.from(validMap.values()).includes(false);
   let formErrorMessages: string[] = [];
-  export let broadcastError = writable({} as NamedErrors);
+  let isLoading = false;
 
   setContext<FormContext<T>>(key, {
     formSchema,
@@ -31,12 +32,13 @@
     broadcastError
   });
 
-  const enhanceForm = (() =>
-    ({ result }) => {
+  const enhanceForm = (() => {
+    isLoading = true;
+    return async ({ result }) => {
       switch (result.type) {
         case 'success':
-          onSuccess(result.data!);
-          return;
+          await onSuccess(result.data!);
+          break;
         case 'failure':
           if (result.data!.errorMessages !== undefined) {
             formErrorMessages = result.data!.errorMessages;
@@ -44,9 +46,11 @@
           if (result.data!.namedErrors !== undefined) {
             broadcastError.set(result.data!.namedErrors);
           }
-          return;
+          break;
       }
-    }) satisfies SubmitFunction<FormResultType, FormErrorData>;
+      isLoading = false;
+    };
+  }) satisfies SubmitFunction<FormResultType, FormErrorData>;
 </script>
 
 <form method="POST" use:enhance={enhanceForm} action={actionName ? `?/${actionName}` : null}>
@@ -56,7 +60,7 @@
       class="btn btn-primary mt-6 transition duration-200 ease-in-out"
       color="primary"
       type="submit"
-      disabled={!!formErrorMessages.length || hasInvalidFields}
+      disabled={isLoading || !!formErrorMessages.length || hasInvalidFields}
       formaction={actionName ? `?/${actionName}` : null}
     >
       {submitText}

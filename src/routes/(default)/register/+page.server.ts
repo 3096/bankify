@@ -5,6 +5,7 @@ import { auth, validateAndCreateSession } from '$lib/server/auth';
 import type { FormErrorData } from '$lib/components/forms/types';
 import prisma from '$lib/server/prisma';
 import formSchema from './form-schema';
+import { ACCOUNT_DEFAULT_NAMES } from '$lib/account';
 
 export const load: PageServerLoad = async ({ locals }) => {
   // if the user is already logged in, redirect to home page?
@@ -44,6 +45,15 @@ export const actions = {
         parseResult.data.password
       );
       locals.auth.setSession(userSession);
+
+      // give new user at least one account
+      await prisma.account.create({
+        data: {
+          accountType: 'CHECKING',
+          userId: userId,
+          accountName: ACCOUNT_DEFAULT_NAMES['CHECKING']
+        }
+      });
     } catch (error) {
       if (error instanceof LuciaError) {
         if (error.message === 'AUTH_DUPLICATE_KEY_ID') {

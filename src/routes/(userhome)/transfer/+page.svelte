@@ -5,7 +5,14 @@
   import type { PageData } from './$types';
   import { ACCOUNT_TYPE_ALLOWED_TO_SEND } from './types';
   import { commaSeparateNumber } from '$lib/utils';
-  import type { BroadcastErrors } from '$lib/components/forms/types';
+  import {
+    addToNamedErrors,
+    removeFromNamedErrors,
+    type BroadcastErrors
+  } from '$lib/components/forms/types';
+
+  const SAME_ACCOUNT_ERROR = 'Cannot transfer to the same account';
+  const INSUFFICIENT_FUNDS_ERROR = 'Insufficient funds';
 
   export let data: PageData;
   let broadcastError: BroadcastErrors;
@@ -22,19 +29,30 @@
     if (amountParse.success) {
       const amount = amountParse.data;
       if (amount > selectedAccount!.currentBalance) {
-        broadcastError.set({ amount: ['Insufficient funds'] });
+        broadcastError.update((namedErrors) =>
+          addToNamedErrors(namedErrors, 'amount', INSUFFICIENT_FUNDS_ERROR)
+        );
+      } else {
+        broadcastError.update((namedErrors) =>
+          removeFromNamedErrors(namedErrors, 'amount', INSUFFICIENT_FUNDS_ERROR)
+        );
       }
     }
   }
 
   $: if (broadcastError) {
     if (parseInt(selectedAccountNumberStr) === parseInt(recipientAccountNumberStr)) {
-      broadcastError.set({ recipientAccountNumber: ['Cannot transfer to the same account'] });
+      broadcastError.update((namedErrors) =>
+        addToNamedErrors(namedErrors, 'recipientAccountNumber', SAME_ACCOUNT_ERROR)
+      );
     } else {
-      broadcastError.set({});
+      broadcastError.update((namedErrors) =>
+        removeFromNamedErrors(namedErrors, 'recipientAccountNumber', SAME_ACCOUNT_ERROR)
+      );
     }
   }
 </script>
+
 <form action="/dashboard">
   <button class="btn btn-square btn-outline">
     <svg

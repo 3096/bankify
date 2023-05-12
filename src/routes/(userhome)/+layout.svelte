@@ -70,11 +70,11 @@
         tabindex="-1"
         class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
       >
-        <li><a href="transfer">Transfer</a></li>
-        <li><a href="payment">Bill Pay</a></li>
-        <li><a href="uploadCheck">Upload Check</a></li>
-        <li><a href="account-creation">Open an Account</a></li>
-        <li><a href="searchATM">Search ATM</a></li>
+        <li><a href="/transfer">Transfer</a></li>
+        <li><a href="/payment">Bill Pay</a></li>
+        <li><a href="/uploadCheck">Upload Check</a></li>
+        <li><a href="/account-creation">Open an Account</a></li>
+        <li><a href="/searchATM">Search ATM</a></li>
       </ul>
     </div>
   </div>

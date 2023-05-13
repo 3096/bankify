@@ -1,10 +1,12 @@
 <script lang="ts">
   import type { PageData } from './$types';
+  import { page } from '$app/stores';
   import ValidInput from '$lib/components/forms/ValidInput.svelte';
   import ValidForm from '$lib/components/forms/ValidForm.svelte';
   import { goto } from '$app/navigation';
   import { bind, each } from 'svelte/internal';
   import { ACCOUNT_TYPE_ALLOWED_TO_DEPOSIT, formSchema } from './form';
+  import { commaSeparateNumber } from '$lib/utils';
 
   export let data: PageData;
 
@@ -16,6 +18,21 @@
   let showImage = false;
   let file: Blob;
   let validType = false;
+
+  let accountNo: string;
+  let amount: string;
+
+  page.subscribe((page) => {
+    const searchParamSelectedAccountNumber = page.url.searchParams.get('to');
+    if (
+      searchParamSelectedAccountNumber &&
+      data.accounts.some(
+        (account) => account.accountNumber.toString() === searchParamSelectedAccountNumber
+      )
+    ) {
+      accountNo = searchParamSelectedAccountNumber;
+    }
+  });
 
   function onChange() {
     file = input.files[0];
@@ -59,10 +76,6 @@
     showImage2 = true;
     //console.log(base64Image);
   }
-
-  let accountNo: string;
-  let amount: string;
-  //do stuff with an OCR to figure out accountNo and amount to deposit
 </script>
 
 <div class="px-2 py-5 sm:p-6 sm:w-1/2 lg:w-1/3 sm:mx-4 lg:mx-8">
@@ -130,10 +143,6 @@
         showImage2 = true;
         //console.log(base64Image);
       }
-
-      let accountNo;
-      let amount;
-      //do stuff with an OCR to figure out accountNo and amount to deposit
     </script>
 
     <form action="/dashboard">
@@ -167,7 +176,9 @@
         bind:value={accountNo}
       >
         {#each data.accounts.filter( (account) => ACCOUNT_TYPE_ALLOWED_TO_DEPOSIT.has(account.accountType) ) as account}
-          <option value={account.accountNumber.toString()}>{account.accountName}</option>
+          <option value={account.accountNumber.toString()}>
+            {account.accountName} - Balance ${commaSeparateNumber(account.currentBalance)}
+          </option>
         {/each}
       </ValidInput>
       <ValidInput name="amount" label="Enter amount" type="number" required bind:value={amount}>

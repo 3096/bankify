@@ -31,7 +31,7 @@
             <ul class="p-2 bg-base-100 z-10 shadow-lg border-t-2">
               <li><a href="/transfer">Transfer</a></li>
               <li><a href="/payment">Bill Pay</a></li>
-              <li><a href="/uploadCheck">Upload Check</a></li>
+              <li><a href="/uploadCheck">Deposit Check</a></li>
             </ul>
           </li>
         </ul>
@@ -72,7 +72,7 @@
       >
         <li><a href="/transfer">Transfer</a></li>
         <li><a href="/payment">Bill Pay</a></li>
-        <li><a href="/uploadCheck">Upload Check</a></li>
+        <li><a href="/uploadCheck">Deposit Check</a></li>
         <li><a href="/account-creation">Open an Account</a></li>
         <li><a href="/searchATM">Search ATM</a></li>
       </ul>

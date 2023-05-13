@@ -1,8 +1,11 @@
 <script lang="ts">
+  import { ACCOUNT_TYPE_FLIP_BALANCE } from '$lib/account';
   import { commaSeparateNumber } from '$lib/utils';
   import type { PageData } from './$types';
 
   export let data: PageData;
+
+  const flipBalance = ACCOUNT_TYPE_FLIP_BALANCE[data.accountType];
 </script>
 
 <div>
@@ -15,27 +18,28 @@
     </figure>
     <div class="card-body">
       <h2 class="card-title">{data.accountName}</h2>
-      <h2 class="card-title mx-auto">${commaSeparateNumber(data.currentBalance)}</h2>
+      <h2 class="card-title mx-auto">${commaSeparateNumber(data.currentBalance * flipBalance)}</h2>
       <br />
-       
-        <!-- <button class="btn btn-primary">Transfer</button> -->
-        
 
+      <!-- <button class="btn btn-primary">Transfer</button> -->
 
-<div tabindex="0" class="collapse collapse-plus border border-base-50 bg-base-50 rounded-box">
-  <div class="collapse-title text-s font-medium">
-    Show Account #
-  </div>
-  <div class="collapse-content">
-    <td
-      >{
-        data.accountNumber
-         
-      }</td
+      <div
+        tabindex="-1"
+        class="collapse collapse-plus border border-base-50 bg-base-50 rounded-box mb-4"
       >
-  </div>
+        <div class="collapse-title text-s font-medium">Show Account #</div>
+        <div class="collapse-content">
+          <td>{data.accountNumber}</td>
+        </div>
       </div>
-      <center><a class="btn btn-primary" href="/transfer">Transfer</a></center>
+      <center>
+        {#if flipBalance > 0}
+          <a class="btn btn-primary" href="/transfer?from={data.accountNumber}">Transfer</a>
+          <a class="btn btn-primary ml-2" href="/uploadCheck?to={data.accountNumber}">Deposit</a>
+        {:else}
+          <a class="btn btn-primary" href="/payment?to={data.accountNumber}">Make payment</a>
+        {/if}
+      </center>
     </div>
   </div>
   <div class=" my-3 bg-indigo-400 mx-auto card w-80 glass">
@@ -51,13 +55,13 @@
         {#each data.transactions as transaction}
           <tr>
             <td>{transaction.description}</td>
-            <td
-              >${commaSeparateNumber(
+            <td>
+              ${commaSeparateNumber(
                 transaction.senderAccountNumber === data.accountNumber
-                  ? -transaction.amount
-                  : transaction.amount
-              )}</td
-            >
+                  ? -(transaction.amount * flipBalance)
+                  : transaction.amount * flipBalance
+              )}
+            </td>
           </tr>
         {/each}
       </table>

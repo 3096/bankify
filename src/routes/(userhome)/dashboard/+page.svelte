@@ -2,6 +2,7 @@
   import { Span } from 'flowbite-svelte';
   import type { PageData } from './$types';
   import { commaSeparateNumber } from '$lib/utils';
+  import { ACCOUNT_TYPE_FLIP_BALANCE } from '$lib/account';
 
   export let data: PageData;
   let dealsActivated = data.deals.map(() => false);
@@ -23,7 +24,9 @@
                     <div class="flex flex-col">
                       <div>{account.accountName}</div>
                       <div class=" text-xl text-gray-900">
-                        ${commaSeparateNumber(account.currentBalance)}
+                        ${commaSeparateNumber(
+                          account.currentBalance * ACCOUNT_TYPE_FLIP_BALANCE[account.accountType]
+                        )}
                       </div>
                     </div>
                   </td>

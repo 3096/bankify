@@ -1,7 +1,7 @@
 <script lang="ts">
   import ValidForm from '$lib/components/forms/ValidForm.svelte';
   import ValidInput from '$lib/components/forms/ValidInput.svelte';
-  import { formSchema } from './form';
+  import { page } from '$app/stores';
   import type { PageData } from './$types';
   import { ACCOUNT_TYPE_ALLOWED_TO_SEND } from './types';
   import { commaSeparateNumber } from '$lib/utils';
@@ -10,6 +10,7 @@
     removeFromNamedErrors,
     type BroadcastErrors
   } from '$lib/components/forms/types';
+  import { formSchema } from './form';
 
   const SAME_ACCOUNT_ERROR = 'Cannot transfer to the same account';
   const INSUFFICIENT_FUNDS_ERROR = 'Insufficient funds';
@@ -20,6 +21,18 @@
   let amountStr = '';
   let recipientAccountNumberStr = '';
   let transferSuccess = false;
+
+  page.subscribe((page) => {
+    const searchParamSelectedAccountNumber = page.url.searchParams.get('from');
+    if (
+      searchParamSelectedAccountNumber &&
+      data.user.accounts.some(
+        (account) => account.accountNumber.toString() === searchParamSelectedAccountNumber
+      )
+    ) {
+      selectedAccountNumberStr = searchParamSelectedAccountNumber;
+    }
+  });
 
   $: if (selectedAccountNumberStr && amountStr) {
     const selectedAccount = data.user.accounts.find(
